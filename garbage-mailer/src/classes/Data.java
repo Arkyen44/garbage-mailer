@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 
 public class Data {
 	private String rivoli;
+	private String typeRue;
 	private String libelle;
 	private String commune;
 	private String motDirecteur;
@@ -22,7 +23,7 @@ public class Data {
 	private ArrayList<String> bleuJourCollecte;
 	private ArrayList<String> jauneJourCollecte;
 	private String observationsJourCollecte;
-	private ArrayList<String> quartier;
+	private String quartier;
 	private String observationsQuartier;
 	
 	private String urlFichier;
@@ -30,6 +31,7 @@ public class Data {
 	
 	public Data(String urlFichier){
 		this.rivoli = "";
+		this.typeRue = "";
 		this.libelle = "";
 		this.commune = "";
 		this.motDirecteur = "";
@@ -42,7 +44,7 @@ public class Data {
 		this.bleuJourCollecte = new ArrayList<String>();
 		this.jauneJourCollecte = new ArrayList<String>();
 		this.observationsJourCollecte = "";
-		this.quartier = new ArrayList<String>();
+		this.quartier = "";
 		this.observationsQuartier = "";
 		
 		this.urlFichier = urlFichier;
@@ -50,6 +52,10 @@ public class Data {
 	
 	public void setRivoli(String string){
 		this.rivoli = string;
+	}
+	
+	public void setTypeRue(String string){
+		this.typeRue = string;
 	}
 	
 	public void setLibelle(String string){
@@ -101,7 +107,7 @@ public class Data {
 	}
 	
 	public void setQuartier(String string){
-		this.quartier.add(string);
+		this.quartier = string;
 	}
 	
 	public void setObservationsQuartier(String string){
@@ -110,6 +116,10 @@ public class Data {
 
 	public String getRivoli(){
 		return this.rivoli;
+	}
+	
+	public String getTypeRue(){
+		return this.typeRue;
 	}
 	
 	public String getLibelle(){
@@ -160,7 +170,7 @@ public class Data {
 		return this.observationsJourCollecte;
 	}
 	
-	public ArrayList<String> getQuartier(){
+	public String getQuartier(){
 		return this.quartier;
 	}
 	
@@ -170,200 +180,6 @@ public class Data {
 	
 	public String getUrlFichier(){
 		return this.urlFichier;
-	}
-	
-	
-	public ArrayList<Data> parsage(){
-		ArrayList<Data> dataLine = new ArrayList<Data>();
-		try {
-			URL url = new URL(this.getUrlFichier());
-			HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
-			httpConnection.connect();
-			InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream());
-			BufferedReader reader = new BufferedReader(isr);
-			
-			
-			String line = "";
-			//à chaque ligne
-			while ((line = reader.readLine()) != null) {
-				StringTokenizer splitter = new StringTokenizer(line, ",");
-				String ajouter = "false";
-				Data datas = new Data(this.getUrlFichier());
-				
-				for(Integer i=0; splitter.hasMoreTokens();i++){
-					String data = (String) splitter.nextToken();
-					data = data.replace("\"", "");
-					switch(i){
-					
-						case 0://controle rivoli
-							if(!(data.isEmpty())){
-								datas.setRivoli(data);
-							}
-							if(!(this.rivoli.equals("")) && data.equals(this.rivoli)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 1://controle libelle
-							if(!(data.isEmpty())){
-								datas.setLibelle(data);
-							}
-							
-							if(!(this.libelle.equals("")) && data.equals(this.libelle)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 2://controle commune
-							if(!(data.isEmpty())){
-								datas.setCommune(data);
-							}
-							
-							if(!(this.commune.equals("")) && data.equals(this.commune)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 3://controle motDirecteur
-							if(!(data.isEmpty())){
-								datas.setMotDirecteur(data);
-							}	
-							if(!(this.motDirecteur.equals("")) && data.equals(this.motDirecteur)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 4://controle statut
-							if(!(data.isEmpty())){
-								datas.setStatut(data);
-							}
-							if(!(this.statut.equals("")) && data.equals(this.statut)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 5://controle tenant
-							if(!(data.isEmpty())){
-								datas.setTenant(data);
-							}
-							if(!(this.tenant.equals("")) && data.equals(this.tenant)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 6://controle aboutissant
-							if(!(data.isEmpty())){
-								datas.setAboutissant(data);
-							}
-							if(!(this.aboutissant.equals("")) && data.equals(this.aboutissant)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 7://controle prestationCollecte
-							if(!(data.isEmpty())){
-								datas.setPrestationCollecte(data);
-							}
-							if(!(this.prestationCollecte.equals("")) && data.equals(this.prestationCollecte)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 8://controle typeCollecte
-							if(!(data.isEmpty())){
-								datas.setTypeCollecte(data);
-							}
-							if(!(this.typeCollecte.equals("")) && data.equals(this.typeCollecte)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 9://controle observationsPrestationCollecte
-							if(!(data.isEmpty())){
-								datas.setObservationsPrestationCollecte(data);
-							}
-							if(!(this.observationsPrestationCollecte.equals("")) && data.equals(this.observationsPrestationCollecte)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 10://controle bleuJourCollecte
-							if(!(data.isEmpty())){
-								String[] splitterBleu1 = data.split(" et ");
-								for(String data1 : splitterBleu1){
-									String[] splitterBleu2 = data1.split(" - ");
-									for(String data2 : splitterBleu2){
-										datas.setBleuJourCollecte(data2);
-										for(Integer j = 0 ; j<this.bleuJourCollecte.size() ; j++){
-											if(data2.equals(this.bleuJourCollecte.get(j))){
-												ajouter = "true";
-											}
-										}
-									}
-								}
-							}
-							break;
-							
-						case 11://controle jauneJourCollecte
-							if(!(data.isEmpty())){
-								String[] splitterJaune1 = data.split(" et ");
-								for(String data1 : splitterJaune1){
-									String[] splitterJaune2 = data1.split(" - ");
-									for(String data2 : splitterJaune2){
-										datas.setJauneJourCollecte(data2);
-										for(Integer j = 0 ; j<this.jauneJourCollecte.size() ; j++){
-											if(data2.equals(this.jauneJourCollecte.get(j))){
-												ajouter = "true";
-											}
-										}
-									}
-								}
-							}
-							break;
-							
-						case 12://controle observationsJourCollecte
-							if(!(data.isEmpty())){
-								datas.setObservationsJourCollecte(data);
-							}
-							if(!(this.observationsJourCollecte.equals("")) && data.equals(this.observationsJourCollecte)){
-								ajouter = "true";
-							}
-							break;
-							
-						case 13://controle quartier
-							if(!(data.isEmpty())){
-								String[] splitterQuartier1 = data.split(" - ");
-								for(String data1 : splitterQuartier1){
-									datas.setQuartier(data1);
-									for(Integer j = 0 ; j<this.quartier.size() ; j++){
-										if(data1.equals(this.quartier.get(j))){
-											ajouter = "true";
-										}
-									}
-								}
-							}
-							break;
-							
-						case 14://controle observationsQuartier
-							if(!(data.isEmpty())){
-								datas.setObservationsQuartier(data);
-							}
-							if(!(this.observationsQuartier.equals("")) && data.equals(this.observationsQuartier)){
-								ajouter = "true";
-							}
-							break;
-					}
-				}
-				
-				if(ajouter == "true"){
-					dataLine.add(datas);
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return dataLine;
 	}
 
 	public ArrayList<Data> parsageAll(){
@@ -377,7 +193,7 @@ public class Data {
 			
 			
 			String line = "";
-			//à chaque ligne
+			//pour chaque ligne
 			while ((line = reader.readLine()) != null) {
 				StringTokenizer splitter = new StringTokenizer(line, ",");
 				Data datas = new Data(this.getUrlFichier());
@@ -395,6 +211,8 @@ public class Data {
 							
 						case 1://controle libelle
 							if(!(data.isEmpty())){
+								String[] splitterLibelle = data.split(" ");
+								datas.setTypeRue(splitterLibelle[0]);
 								datas.setLibelle(data);
 							}
 							break;
@@ -479,10 +297,7 @@ public class Data {
 							
 						case 13://controle quartier
 							if(!(data.isEmpty())){
-								String[] splitterQuartier1 = data.split(" - ");
-								for(String data1 : splitterQuartier1){
-									datas.setQuartier(data1);
-								}
+								datas.setQuartier(data);
 							}
 							break;
 							
@@ -507,34 +322,11 @@ public class Data {
 	
 	
 	public static void main(String[] args) {
-		// exemple d'utilisation si pas rentrée dans le BD
-		Data data1 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
-		Data data2 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
-		Data data3 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
-		
-		data2.setLibelle("Boulevard Albert Einstein");
-		System.out.println("Quartier de Boulevard Albert Einstein : " + data2.parsage().get(0).getQuartier().get(0));
-		
-		data1.setLibelle("Passage Alvar Aalto");
-		System.out.println("Les quartiers du Passage Alvar Aalto :");
-		for(Integer i = 0; i<data1.parsage().size();i++){
-			for(Integer j = 0 ; j<data1.parsage().get(i).getQuartier().size() ; j++){
-				System.out.print("Quartier : " + data1.parsage().get(i).getQuartier().get(j)+"\n");
-			}
-		}
-		
-		data3.setBleuJourCollecte("vendredi");
-		System.out.println("Les quartiers où les poubelles bleues passent le vendredi");
-		for(Integer i =0 ; i<data3.parsage().size() ; i++){
-			for(Integer j = 0 ; j<data3.parsage().get(i).getQuartier().size() ; j++){
-				System.out.println("Qurtier : " + data3.parsage().get(i).getQuartier().get(j) + "\n");
-			}
-		}
-		
-		//exemple pour rentrer les données dans la BD
+		//exemple pour rentrer les donnï¿½es dans la BD
 		Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
 		for(Integer index = 0 ; index<data4.parsageAll().size() ; index++){
 			String rivoli = data4.parsageAll().get(index).getRivoli();
+			String typeRue = data4.parsageAll().get(index).getTypeRue();
 			String libelle = data4.parsageAll().get(index).getLibelle();
 			String commune = data4.parsageAll().get(index).getCommune();
 			String motDirecteur = data4.parsageAll().get(index).getMotDirecteur();
@@ -547,9 +339,9 @@ public class Data {
 			ArrayList<String> bleuJourCollecte = data4.parsageAll().get(index).getBleuJourCollecte();
 			ArrayList<String> jauneJourCollecte = data4.parsageAll().get(index).getJauneJourCollecte();
 			String observationsJourCollecte = data4.parsageAll().get(index).getObservationsJourCollecte();
-			ArrayList<String> quartier = data4.parsageAll().get(index).getQuartier();
+			String quartier = data4.parsageAll().get(index).getQuartier();
 			String observationsQuartier = data4.parsageAll().get(index).getObservationsQuartier();
-			/* ajout de la ligne de la BD avec les champs récupéré */
+			/* ajout de la ligne de la BD avec les champs rï¿½cupï¿½rï¿½ */
 			System.out.println("DONE!");
 		}
 	}
