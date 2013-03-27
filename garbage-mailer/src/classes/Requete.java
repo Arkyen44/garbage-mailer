@@ -39,7 +39,6 @@ public final class Requete {
 			 	" WHERE name == '"+name+"' && address == '"+nomRue+"'";
 		
 		List<UserBean> liste = (List<UserBean>) pm.newQuery(query).execute();
-		System.out.println("pause");
 		if (liste != null)
 				pm.deletePersistent(liste.get(0));
 		pm.close();
