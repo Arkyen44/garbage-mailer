@@ -21,7 +21,7 @@ public class LoadAddressFromCsvServlet extends HttpServlet{
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 		System.out.println("dans load"); 
-		
+		/*
 		Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
@@ -42,7 +42,7 @@ public class LoadAddressFromCsvServlet extends HttpServlet{
 				String observationsJourCollecte = data4.parsageAll().get(index).getObservationsJourCollecte();
 				ArrayList<String> quartier = data4.parsageAll().get(index).getQuartier();
 				String observationsQuartier = data4.parsageAll().get(index).getObservationsQuartier();
-				/* ajout de la ligne de la BD avec les champs récupéré */
+				 ajout de la ligne de la BD avec les champs récupéré 
 				
 				AddressBean a1 = new AddressBean();
 				a1.setNomRue(libelle);
@@ -50,19 +50,19 @@ public class LoadAddressFromCsvServlet extends HttpServlet{
 				//a1.setType();
 				//a1.setRivolli(rivoli);
 				
-				//pm.makePersistent(a2);
-			}
+				//pm.makePersistent(a2);*/
+		/*	}
 	    	
 	       
 	    } finally {
 	        pm.close();
 	    }
 		
-		
+		*/
 		
 		
 		//création de fausses adresses
-		/*AddressBean a1 = new AddressBean();
+		AddressBean a1 = new AddressBean();
 		a1.setNomRue("Passage Alvar Aalto");
 		a1.setQuartier("Dervallieres - Zola");
 		a1.setType("Passage");
@@ -144,10 +144,10 @@ public class LoadAddressFromCsvServlet extends HttpServlet{
 		
 		UserBean u3 = new UserBean();
 		u3.setName("tata@gmail.com");
-		u3.setAddress(a3.getNomRue());*/
+		u3.setAddress(a3.getNomRue());
 		
 		//insertion en BDD 
-		/*PersistenceManager pm = PMF.get().getPersistenceManager();
+		PersistenceManager pm = PMF.get().getPersistenceManager();
 	    try {
 	    	pm.makePersistent(a1);
 	    	pm.makePersistent(a2);
@@ -169,6 +169,6 @@ public class LoadAddressFromCsvServlet extends HttpServlet{
 	    } finally {
 	        pm.close();
 	    }
-	    response.sendRedirect("/addAddress.jsp");*/
+	    response.sendRedirect("/index.jsp");
 	 }
 }
