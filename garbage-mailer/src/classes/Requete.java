@@ -42,7 +42,6 @@ public final class Requete {
 		if (liste != null)
 				pm.deletePersistent(liste.get(0));
 		pm.close();
-		
 	}
 	
 	public static AddressBean getAddress(String rivolli){
