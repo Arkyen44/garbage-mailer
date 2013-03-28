@@ -20,8 +20,8 @@ public class Data {
 	private String prestationCollecte;
 	private String typeCollecte;
 	private String observationsPrestationCollecte;
-	private ArrayList<String> bleuJourCollecte;
-	private ArrayList<String> jauneJourCollecte;
+	private String bleuJourCollecte;
+	private String jauneJourCollecte;
 	private String observationsJourCollecte;
 	private String quartier;
 	private String observationsQuartier;
@@ -41,8 +41,8 @@ public class Data {
 		this.prestationCollecte = "";
 		this.typeCollecte = "";
 		this.observationsPrestationCollecte = "";
-		this.bleuJourCollecte = new ArrayList<String>();
-		this.jauneJourCollecte = new ArrayList<String>();
+		this.bleuJourCollecte = "";
+		this.jauneJourCollecte = "";
 		this.observationsJourCollecte = "";
 		this.quartier = "";
 		this.observationsQuartier = "";
@@ -95,11 +95,11 @@ public class Data {
 	}
 	
 	public void setBleuJourCollecte(String string){
-		this.bleuJourCollecte.add(string);
+		this.bleuJourCollecte = " " + string;
 	}
 	
 	public void setJauneJourCollecte(String string){
-		this.jauneJourCollecte.add(string);
+		this.jauneJourCollecte = " " + string;
 	}
 	
 	public void setObservationsJourCollecte(String string){
@@ -158,11 +158,11 @@ public class Data {
 		return this.observationsPrestationCollecte;
 	}
 	
-	public ArrayList<String> getBleuJourCollecte(){
+	public String getBleuJourCollecte(){
 		return this.bleuJourCollecte;
 	}
 	
-	public ArrayList<String> getJauneJourCollecte(){
+	public String getJauneJourCollecte(){
 		return this.jauneJourCollecte;
 	}
 	
@@ -336,8 +336,8 @@ public class Data {
 			String prestationCollecte = data4.parsageAll().get(index).getPrestationCollecte();
 			String typeCollecte = data4.parsageAll().get(index).getTypeCollecte();
 			String observationsPrestationCollecte = data4.parsageAll().get(index).getObservationsPrestationCollecte();
-			ArrayList<String> bleuJourCollecte = data4.parsageAll().get(index).getBleuJourCollecte();
-			ArrayList<String> jauneJourCollecte = data4.parsageAll().get(index).getJauneJourCollecte();
+			String bleuJourCollecte = data4.parsageAll().get(index).getBleuJourCollecte();
+			String jauneJourCollecte = data4.parsageAll().get(index).getJauneJourCollecte();
 			String observationsJourCollecte = data4.parsageAll().get(index).getObservationsJourCollecte();
 			String quartier = data4.parsageAll().get(index).getQuartier();
 			String observationsQuartier = data4.parsageAll().get(index).getObservationsQuartier();
