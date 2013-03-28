@@ -95,11 +95,11 @@ public class Data {
 	}
 	
 	public void setBleuJourCollecte(String string){
-		this.bleuJourCollecte = " " + string;
+		this.bleuJourCollecte += " " + string;
 	}
 	
 	public void setJauneJourCollecte(String string){
-		this.jauneJourCollecte = " " + string;
+		this.jauneJourCollecte += " " + string;
 	}
 	
 	public void setObservationsJourCollecte(String string){
@@ -197,8 +197,9 @@ public class Data {
 			while ((line = reader.readLine()) != null) {
 				StringTokenizer splitter = new StringTokenizer(line, ",");
 				Data datas = new Data(this.getUrlFichier());
+				Boolean trouve = false;
 				
-				for(Integer i=0; splitter.hasMoreTokens();i++){
+				for(Integer i=0; splitter.hasMoreTokens() ;i++){
 					String data = (String) splitter.nextToken();
 					data = data.replace("\"", "");
 					switch(i){
@@ -226,6 +227,14 @@ public class Data {
 						case 3://controle motDirecteur
 							if(!(data.isEmpty())){
 								datas.setMotDirecteur(data);
+							}
+							if(!(this.motDirecteur.equals(""))){
+								String[] splitterMotDirecteur = this.motDirecteur.toUpperCase().split(" ");
+								for(String motDirecteur1 : splitterMotDirecteur){
+									if(data.toUpperCase().equals(motDirecteur1)){
+										trouve = true;
+									}
+								}
 							}
 							break;
 							
@@ -308,7 +317,9 @@ public class Data {
 							break;
 					}
 				}
-				dataLine.add(datas);
+				if(trouve){
+					dataLine.add(datas);
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -324,25 +335,31 @@ public class Data {
 	public static void main(String[] args) {
 		//exemple pour rentrer les donn�es dans la BD
 		Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
-		for(Integer index = 0 ; index<data4.parsageAll().size() ; index++){
-			String rivoli = data4.parsageAll().get(index).getRivoli();
-			String typeRue = data4.parsageAll().get(index).getTypeRue();
-			String libelle = data4.parsageAll().get(index).getLibelle();
-			String commune = data4.parsageAll().get(index).getCommune();
-			String motDirecteur = data4.parsageAll().get(index).getMotDirecteur();
-			String statut = data4.parsageAll().get(index).getStatut();
-			String tenant = data4.parsageAll().get(index).getTenant();
-			String aboutissant = data4.parsageAll().get(index).getAboutissant();
-			String prestationCollecte = data4.parsageAll().get(index).getPrestationCollecte();
-			String typeCollecte = data4.parsageAll().get(index).getTypeCollecte();
-			String observationsPrestationCollecte = data4.parsageAll().get(index).getObservationsPrestationCollecte();
-			String bleuJourCollecte = data4.parsageAll().get(index).getBleuJourCollecte();
-			String jauneJourCollecte = data4.parsageAll().get(index).getJauneJourCollecte();
-			String observationsJourCollecte = data4.parsageAll().get(index).getObservationsJourCollecte();
-			String quartier = data4.parsageAll().get(index).getQuartier();
-			String observationsQuartier = data4.parsageAll().get(index).getObservationsQuartier();
-			/* ajout de la ligne de la BD avec les champs r�cup�r� */
+		data4.setMotDirecteur("Boulevard Albert Einstein");
+		ArrayList<Data> dataparsee = data4.parsageAll();
+		for(Integer index = 0 ; index<dataparsee.size() ; index++){
+			System.out.println("Correspondance n°"+ (index + 1) + " pour Boulevard Albert Einstein");
+			String rivoli = dataparsee.get(index).getRivoli();
+			String typeRue = dataparsee.get(index).getTypeRue();
+			String libelle = dataparsee.get(index).getLibelle();
+			String commune = dataparsee.get(index).getCommune();
+			String motDirecteur = dataparsee.get(index).getMotDirecteur();
+			String statut = dataparsee.get(index).getStatut();
+			String tenant = dataparsee.get(index).getTenant();
+			String aboutissant = dataparsee.get(index).getAboutissant();
+			String prestationCollecte = dataparsee.get(index).getPrestationCollecte();
+			String typeCollecte = dataparsee.get(index).getTypeCollecte();
+			String observationsPrestationCollecte = dataparsee.get(index).getObservationsPrestationCollecte();
+			String bleuJourCollecte = dataparsee.get(index).getBleuJourCollecte();
+			String jauneJourCollecte = dataparsee.get(index).getJauneJourCollecte();
+			String observationsJourCollecte = dataparsee.get(index).getObservationsJourCollecte();
+			String quartier = dataparsee.get(index).getQuartier();
+			String observationsQuartier = dataparsee.get(index).getObservationsQuartier();
+			/* affichage des donnees */
 			System.out.println("DONE!");
+			System.out.println(rivoli + " " + libelle + "\n" + commune + motDirecteur + statut + "...");
+			System.out.println(bleuJourCollecte);
+			System.out.println(jauneJourCollecte);
 		}
 	}
 
