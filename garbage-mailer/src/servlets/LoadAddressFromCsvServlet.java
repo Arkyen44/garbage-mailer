@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import classes.Data;
 import classes.PMF;
 
-import beans.AddressBean;
 import beans.UserBean;
 
 
@@ -62,7 +61,7 @@ public class LoadAddressFromCsvServlet extends HttpServlet{
 		
 		
 		//création de fausses adresses
-		AddressBean a1 = new AddressBean();
+		/*AddressBean a1 = new AddressBean();
 		a1.setNomRue("Passage Alvar Aalto");
 		a1.setQuartier("Dervallieres - Zola");
 		a1.setType("Passage");
@@ -169,6 +168,6 @@ public class LoadAddressFromCsvServlet extends HttpServlet{
 	    } finally {
 	        pm.close();
 	    }
-	    response.sendRedirect("/index.jsp");
+	    response.sendRedirect("/index.jsp");*/
 	 }
 }

@@ -20,6 +20,10 @@ public class UserBean {
 	private String name;
 	@Persistent
 	private String address;
+	@Persistent
+	private String jaune;
+	@Persistent
+	private String bleu;
 	
 
 	public UserBean(){

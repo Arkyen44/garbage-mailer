@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.jasper.tagplugins.jstl.core.Redirect;
 
-import beans.AddressBean;
 import beans.UserBean;
 import classes.PMF;
 import classes.Requete;
@@ -35,7 +34,7 @@ public class AddressOkServlet extends HttpServlet{
 		boolean alreadyHave = false;
 		
 		//on récupère l'adresse qui a été validée en BDD
-		AddressBean address = Requete.getAddress(request.getParameter("ListeRue"));
+	
 		
 		//On récupère le user en BDD
 		UserService userService = UserServiceFactory.getUserService();
@@ -48,11 +47,7 @@ public class AddressOkServlet extends HttpServlet{
 		//si la liste n'est pas nulle, c'est que l'utilisateur a déjà au moins une adresse
 		if (liste !=null){
 			//on vérifie que ce ne soit pas celle qu'il est en train d'ajouter
-			for (UserBean ub : liste){
-				if (ub.getAddress().equals(address.getNomRue())) {
-					alreadyHave = true;
-				}
-			}
+			
 		}
 		
 		
@@ -60,7 +55,7 @@ public class AddressOkServlet extends HttpServlet{
 		//on sauv la nouvelle addresse
 		if (!alreadyHave){
 			UserBean ub = new UserBean();
-			ub.setAddress(address.getNomRue());
+			//ub.setAddress(address.getNomRue());
 			ub.setName(userGoogle.getEmail());
 			
 			PersistenceManager pm = PMF.get().getPersistenceManager();

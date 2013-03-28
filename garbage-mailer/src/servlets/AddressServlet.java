@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -11,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.AddressBean;
 
+import classes.Data;
 import classes.PMF;
 import classes.Requete;
 
@@ -21,22 +22,46 @@ public class AddressServlet extends HttpServlet{
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-		 System.out.println("dans AdressServlet");
-		 //on récupère le quartier et le type
-		 String typeRue = request.getParameter("ListeTypeRue");
-	     String quartier = request.getParameter("ListeQuartier");
+		 //on récupère le nom de la rue
+		 String nomRue = request.getParameter("nomRue");
+
+		 System.out.println("-"+nomRue);
 	     
-	     //on récupère les adresses disponibles dans ce quartier
-	     List<AddressBean> liste = Requete.getListAddress(quartier, typeRue);	  
+  		 Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
+  		 data4.setMotDirecteur(nomRue);
+  		 ArrayList<Data> dataparsee = data4.parsageAll();
+	  		for(Integer index = 0 ; index<dataparsee.size() ; index++){
+				System.out.println("Correspondance nÂ°"+ (index + 1) + " pour Boulevard Albert Einstein");
+				String rivoli = dataparsee.get(index).getRivoli();
+				String typeRue = dataparsee.get(index).getTypeRue();
+				String libelle = dataparsee.get(index).getLibelle();
+				String commune = dataparsee.get(index).getCommune();
+				String motDirecteur = dataparsee.get(index).getMotDirecteur();
+				String statut = dataparsee.get(index).getStatut();
+				String tenant = dataparsee.get(index).getTenant();
+				String aboutissant = dataparsee.get(index).getAboutissant();
+				String prestationCollecte = dataparsee.get(index).getPrestationCollecte();
+				String typeCollecte = dataparsee.get(index).getTypeCollecte();
+				String observationsPrestationCollecte = dataparsee.get(index).getObservationsPrestationCollecte();
+				String bleuJourCollecte = dataparsee.get(index).getBleuJourCollecte();
+				String jauneJourCollecte = dataparsee.get(index).getJauneJourCollecte();
+				String observationsJourCollecte = dataparsee.get(index).getObservationsJourCollecte();
+				String quartier = dataparsee.get(index).getQuartier();
+				String observationsQuartier = dataparsee.get(index).getObservationsQuartier();
+				/* affichage des donnees */
+				System.out.println("DONE!");
+				System.out.println(rivoli + " " + libelle + "\n" + commune + motDirecteur + statut + "...");
+				System.out.println(bleuJourCollecte);
+				System.out.println(jauneJourCollecte);
+			}
 	     
-	     //on crée un attribut à la request, que l'on va forwarder
-      	 request.setAttribute("liste", liste);
-      	 RequestDispatcher rd = getServletContext().getRequestDispatcher("/addAddress2.jsp");
+	     
+      	/* RequestDispatcher rd = getServletContext().getRequestDispatcher("/addAddress2.jsp");
          try {
 			rd.forward(request,response);
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	 }
 }

@@ -1,6 +1,5 @@
 <%@page import="classes.Requete"%>
 <%@page import="beans.UserBean"%>
-<%@page import="beans.AddressBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -24,9 +23,7 @@
 		
 	//si la liste n'est pas vide, on affiche les adresses
 	if(listeUb != null){
-		
-		
-		
+
 		%>
 		<TABLE BORDER="1"> 
 		<CAPTION> Vos addresses </CAPTION> 
@@ -51,7 +48,12 @@
 	%>
 	
 	
-	<a href="addAddress.jsp">Ajouter une adresse</a><br/>
+	<p>Ajouter une adresse</p><br/>
+	<form action="/address" method="post">
+		<div><input type="text" value="nomRue" name="nomRue"/></div>
+		<div><input type="submit" value="Valider" /></div>
+	</form><br/>
+	
 	<form action="/load" method="post">
 		<div><input type="submit" value="Load" /></div>
 	</form><br/>
