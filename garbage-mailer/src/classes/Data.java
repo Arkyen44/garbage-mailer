@@ -3,12 +3,13 @@ package classes;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class Data {
+public class Data implements Serializable{
 	private String rivoli;
 	private String typeRue;
 	private String libelle;
@@ -230,8 +231,13 @@ public class Data {
 							}
 							if(!(this.motDirecteur.equals(""))){
 								String[] splitterMotDirecteur = this.motDirecteur.toUpperCase().split(" ");
-								for(String motDirecteur1 : splitterMotDirecteur){
-									if(data.toUpperCase().equals(motDirecteur1)){
+								
+								for(String s : splitterMotDirecteur){
+									//on enlève les éventuelles apostrophes
+									if (s.matches(".*'.*"))
+										s = s.split("'")[1];
+									
+									if(data.toUpperCase().equals(s)){
 										trouve = true;
 									}
 								}

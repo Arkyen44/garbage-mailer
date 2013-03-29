@@ -27,11 +27,13 @@ public class AddressServlet extends HttpServlet{
 
 		 System.out.println("-"+nomRue);
 	     
+		 
   		 Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
   		 data4.setMotDirecteur(nomRue);
   		 ArrayList<Data> dataparsee = data4.parsageAll();
+  		 request.setAttribute("liste", dataparsee);
+  		 
 	  		for(Integer index = 0 ; index<dataparsee.size() ; index++){
-				System.out.println("Correspondance n°"+ (index + 1) + " pour Boulevard Albert Einstein");
 				String rivoli = dataparsee.get(index).getRivoli();
 				String typeRue = dataparsee.get(index).getTypeRue();
 				String libelle = dataparsee.get(index).getLibelle();
@@ -48,7 +50,7 @@ public class AddressServlet extends HttpServlet{
 				String observationsJourCollecte = dataparsee.get(index).getObservationsJourCollecte();
 				String quartier = dataparsee.get(index).getQuartier();
 				String observationsQuartier = dataparsee.get(index).getObservationsQuartier();
-				/* affichage des donnees */
+				// affichage des donnees 
 				System.out.println("DONE!");
 				System.out.println(rivoli + " " + libelle + "\n" + commune + motDirecteur + statut + "...");
 				System.out.println(bleuJourCollecte);
@@ -56,12 +58,12 @@ public class AddressServlet extends HttpServlet{
 			}
 	     
 	     
-      	/* RequestDispatcher rd = getServletContext().getRequestDispatcher("/addAddress2.jsp");
+      	 RequestDispatcher rd = getServletContext().getRequestDispatcher("/chooseAddress.jsp");
          try {
 			rd.forward(request,response);
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 	 }
 }

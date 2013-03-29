@@ -19,6 +19,7 @@
 	
 	<%
 	//on récupère le user en BDD
+	
 	List<UserBean> listeUb = Requete.getUser( userGoogle.getEmail());
 		
 	//si la liste n'est pas vide, on affiche les adresses
@@ -32,7 +33,7 @@
 				%>
 				<TR> 
 					<TH><%=ub.getAddress() %></TH>
-					<TH><a href="/delAddress?idDel=<%=ub.getAddress() %>">supprimer</a></TH>
+					<TH><a href="/delAddress?idDel=<%=ub.getRivolli() %>">supprimer</a></TH>
 				</TR>
 				<%
 			}
@@ -50,7 +51,7 @@
 	
 	<p>Ajouter une adresse</p><br/>
 	<form action="/address" method="post">
-		<div><input type="text" value="nomRue" name="nomRue"/></div>
+		<div><input type="text" value="" name="nomRue"/></div>
 		<div><input type="submit" value="Valider" /></div>
 	</form><br/>
 	

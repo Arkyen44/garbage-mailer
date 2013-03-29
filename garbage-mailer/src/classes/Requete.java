@@ -21,12 +21,11 @@ public final class Requete {
 			return liste;
 	}
 	
-	public static void delAddress(String nomRue, String name){
+	public static void delAddress(String rivo, String name){
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		nomRue = nomRue.replace("'", "\'\'");
 		String query =
       			"SELECT FROM " + UserBean.class.getName() +
-			 	" WHERE name == '"+name+"' && address == '"+nomRue+"'";
+			 	" WHERE name == '"+name+"' && rivolli == '"+rivo+"'";
 		
 		List<UserBean> liste = (List<UserBean>) pm.newQuery(query).execute();
 		if (liste != null)
@@ -34,5 +33,18 @@ public final class Requete {
 		pm.close();
 	}
 	
-	
+	public static boolean exist(String userName, String rivolli){
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		String query =
+      			"SELECT FROM " + UserBean.class.getName() +
+			 	" WHERE name == '"+userName+"' && rivolli == '"+rivolli+"'";
+		
+		List<UserBean> liste = (List<UserBean>) pm.newQuery(query).execute();
+		if (liste != null){
+			if (liste.size()>0)
+					return true;
+			else return false;
+		}else return false;
+				
+	}
 }

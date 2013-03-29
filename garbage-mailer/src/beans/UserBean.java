@@ -21,6 +21,8 @@ public class UserBean {
 	@Persistent
 	private String address;
 	@Persistent
+	private String rivolli;
+	@Persistent
 	private String jaune;
 	@Persistent
 	private String bleu;
@@ -53,6 +55,29 @@ public class UserBean {
 	public void setKey(Key key) {
 		this.key = key;
 	}
+	
+	public String getJaune() {
+		return jaune;
+	}
 
+	public void setJaune(String jaune) {
+		this.jaune = jaune;
+	}
+
+	public String getBleu() {
+		return bleu;
+	}
+
+	public void setBleu(String bleu) {
+		this.bleu = bleu;
+	}
+
+	public String getRivolli() {
+		return rivolli;
+	}
+
+	public void setRivolli(String rivolli) {
+		this.rivolli = rivolli;
+	}
 
 }

@@ -17,9 +17,9 @@ public class DelAddressServlet extends HttpServlet{
 		UserService userService = UserServiceFactory.getUserService();
 		User userGoogle = userService.getCurrentUser();
 		
-		String nomRue = request.getParameter("idDel");
+		String rivolli = request.getParameter("idDel");
 		
-		Requete.delAddress(nomRue, userGoogle.getEmail());
+		Requete.delAddress(rivolli, userGoogle.getEmail());
 		//forcer le rafraichissement de la page index (sans ça, l'adresse ne supprime pas du premier coup)
 		response.addHeader("Pragma", "no-cache");
 		response.addHeader("Cache-Control", "no-cache");

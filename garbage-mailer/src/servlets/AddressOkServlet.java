@@ -1,26 +1,19 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.jdo.PersistenceManager;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.jasper.tagplugins.jstl.core.Redirect;
+import javax.servlet.http.HttpSession;
 
 import beans.UserBean;
+import classes.Data;
 import classes.PMF;
 import classes.Requete;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -34,46 +27,42 @@ public class AddressOkServlet extends HttpServlet{
 		boolean alreadyHave = false;
 		
 		//on récupère l'adresse qui a été validée en BDD
-	
+		String idRue = request.getParameter("choixAdresse");
+		HttpSession sess =request.getSession(true);
+		ArrayList<Data> dataToChoose = ((ArrayList<Data>)sess.getAttribute("listeData"));
+		Data address = null;
 		
-		//On récupère le user en BDD
+		if (dataToChoose != null){
+			for (Data d : dataToChoose){
+				if (d.getRivoli().equals(idRue)){
+					address = d;
+					break;
+				}
+					
+			}
+		}
+		//On récupère le nom de l'utilisateur connecté à google
 		UserService userService = UserServiceFactory.getUserService();
-		User userGoogle = userService.getCurrentUser();
+		User userGoogle = userService.getCurrentUser();		
 		
-		
-		//on regarde si l'utilisateur n'a pas déjà inséré cette adresse
-		List<UserBean> liste = Requete.getUser(userGoogle.getNickname());
-		
-		//si la liste n'est pas nulle, c'est que l'utilisateur a déjà au moins une adresse
-		if (liste !=null){
-			//on vérifie que ce ne soit pas celle qu'il est en train d'ajouter
-			
+		if (address != null){
+			//on regarde si l'utilisateur n'a pas déjà inséré cette adresse
+			if (! Requete.exist(userGoogle.getEmail(), idRue)){
+				//on insère l'adresse
+				UserBean ub = new UserBean();
+				ub.setName(userGoogle.getEmail());
+				ub.setAddress(address.getLibelle());
+				ub.setRivolli(address.getRivoli());
+				ub.setBleu(address.getBleuJourCollecte());
+				ub.setJaune(address.getJauneJourCollecte());
+				PersistenceManager pm = PMF.get().getPersistenceManager();
+			    try {
+			    	pm.makePersistent(ub);
+			    } finally {
+			        pm.close();
+			    }
+			}
 		}
-		
-		
-		
-		//on sauv la nouvelle addresse
-		if (!alreadyHave){
-			UserBean ub = new UserBean();
-			//ub.setAddress(address.getNomRue());
-			ub.setName(userGoogle.getEmail());
-			
-			PersistenceManager pm = PMF.get().getPersistenceManager();
-			
-		    try {
-		    	pm.makePersistent(ub);
-		    } finally {
-		        pm.close();
-		    }
-		}
-		
-	    /*RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-        try {
-			rd.forward(request,response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		
 		//forcer le rafraichissement de la page index (sans ça, l'adresse ne s'affiche pas du premier coup)
 		response.addHeader("Pragma", "no-cache");
