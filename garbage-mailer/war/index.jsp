@@ -54,10 +54,7 @@
 		<div><input type="text" value="" name="nomRue"/></div>
 		<div><input type="submit" value="Valider" /></div>
 	</form><br/>
-	
-	<form action="/load" method="post">
-		<div><input type="submit" value="Load" /></div>
-	</form><br/>
+
 	
 	<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">deconnexion</a>.
 	<%
