@@ -8,14 +8,6 @@
 		<url-pattern>/address</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>LoadAddressFromCsvServlet</servlet-name>
-		<servlet-class>servlets.LoadAddressFromCsvServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LoadAddressFromCsvServlet</servlet-name>
-		<url-pattern>/load</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>AddressOkServlet</servlet-name>
 		<servlet-class>servlets.AddressOkServlet</servlet-class>
 	</servlet>

@@ -36,6 +36,7 @@ if (userGoogle != null){
 			<% 
 		}
 		%>
+		<input name="numRue" type="hidden" value="<%= request.getAttribute("num") %>" />
 		<div><input type="submit" value="Valider mes informations" /></div>
 		</form>
 		<%

@@ -33,11 +33,11 @@ public final class Requete {
 		pm.close();
 	}
 	
-	public static boolean exist(String userName, String rivolli){
+	public static boolean exist(String userName, String rivolli, String num){
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		String query =
       			"SELECT FROM " + UserBean.class.getName() +
-			 	" WHERE name == '"+userName+"' && rivolli == '"+rivolli+"'";
+			 	" WHERE name == '"+userName+"' && rivolli == '"+rivolli+"' && numero == '"+ num +"'";
 		
 		List<UserBean> liste = (List<UserBean>) pm.newQuery(query).execute();
 		if (liste != null){

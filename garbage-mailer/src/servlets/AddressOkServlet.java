@@ -28,6 +28,8 @@ public class AddressOkServlet extends HttpServlet{
 		
 		//on récupère l'adresse qui a été validée en BDD
 		String idRue = request.getParameter("choixAdresse");
+		String num = request.getParameter("numRue");
+		
 		HttpSession sess =request.getSession(true);
 		ArrayList<Data> dataToChoose = ((ArrayList<Data>)sess.getAttribute("listeData"));
 		Data address = null;
@@ -47,10 +49,11 @@ public class AddressOkServlet extends HttpServlet{
 		
 		if (address != null){
 			//on regarde si l'utilisateur n'a pas déjà inséré cette adresse
-			if (! Requete.exist(userGoogle.getEmail(), idRue)){
+			if (! Requete.exist(userGoogle.getEmail(), idRue, num)){
 				//on insère l'adresse
 				UserBean ub = new UserBean();
 				ub.setName(userGoogle.getEmail());
+				ub.setNumero(num);
 				ub.setAddress(address.getLibelle());
 				ub.setRivolli(address.getRivoli());
 				ub.setBleu(address.getBleuJourCollecte());

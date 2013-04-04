@@ -12,27 +12,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import classes.Data;
 import classes.PMF;
 import classes.Requete;
 
+public class AddressServlet extends HttpServlet {
 
-public class AddressServlet extends HttpServlet{
-	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+		
+		 String num = "";
+		 String nomRue = "";
 		 //on récupère le nom de la rue
-		 String nomRue = request.getParameter("nomRue");
-
+		 nomRue = request.getParameter("nomRue");
+		 num = request.getParameter("num");
+		 
+		//On vérifie que les 2 champs du formulaire sont bien remplis
+		 if ((nomRue.equals("")) || (num.equals(""))){
+				 response.sendRedirect("index.jsp");
+		 }
+		//et que num est bien un chiffre
+		 if (! num.matches("[0-9]*"))
+			 response.sendRedirect("index.jsp");
+		
 		 System.out.println("-"+nomRue);
-	     
+		 System.out.println("-"+num);
 		 
   		 Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
   		 data4.setMotDirecteur(nomRue);
   		 ArrayList<Data> dataparsee = data4.parsageAll();
   		 request.setAttribute("liste", dataparsee);
-  		 
+  		 request.setAttribute("num", num);
 	  		for(Integer index = 0 ; index<dataparsee.size() ; index++){
 				String rivoli = dataparsee.get(index).getRivoli();
 				String typeRue = dataparsee.get(index).getTypeRue();
@@ -51,10 +61,10 @@ public class AddressServlet extends HttpServlet{
 				String quartier = dataparsee.get(index).getQuartier();
 				String observationsQuartier = dataparsee.get(index).getObservationsQuartier();
 				// affichage des donnees 
-				System.out.println("DONE!");
+				/*System.out.println("DONE!");
 				System.out.println(rivoli + " " + libelle + "\n" + commune + motDirecteur + statut + "...");
 				System.out.println(bleuJourCollecte);
-				System.out.println(jauneJourCollecte);
+				System.out.println(jauneJourCollecte);*/
 			}
 	     
 	     
