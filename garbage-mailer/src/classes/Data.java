@@ -208,9 +208,35 @@ public class Data implements Serializable{
 		return this.urlFichier;
 	}
 
-	public ArrayList<Data> parsageFirst(){
+	public void resetData(){
+		this.rivoli = "";
+		this.typeRue = "";
+		this.libelle = "";
+		this.commune = "";
+		this.motDirecteur = "";
+		this.statut = "";
+		this.tenant = "";
+		this.aboutissant = "";
+		this.prestationCollecte = "";
+		this.typeCollecte = "";
+		this.observationsPrestationCollecte = "";
+		this.bleuJourCollecte = "";
+		this.jauneJourCollecte = "";
+		this.observationsJourCollecte = "";
+		this.quartier = "";
+		this.observationsQuartier = "";
+	}
+	
+	/*
+	 * Fonction parsageFirst qui servira a parser tout le fichier
+	 * pour trouver l'adresse recherchee par le visiteur
+	 * Elle renvoie une liste d'adresses succeptible de comprendre celle recherchee
+	 */
+	public ArrayList<Data> parsageFirst(String motDirecteur){
+		this.setMotDirecteur(motDirecteur);
 		ArrayList<Data> dataLine = new ArrayList<Data>();
 		try {
+			//on parcourt le fichier csv present sur le serveur de l'openData grace a son URL
 			URL url = new URL(this.getUrlFichier());
 			HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
 			httpConnection.connect();
@@ -218,27 +244,30 @@ public class Data implements Serializable{
 			BufferedReader reader = new BufferedReader(isr);
 			
 			String line = "";
-			//pour chaque ligne
+			//pour chaque ligne du fichier
 			while ((line = reader.readLine()) != null) {
+				//on splitte chaque champs avec , qui est le délimiteur du csv
 				StringTokenizer splitter = new StringTokenizer(line, ",");
+				//on cree un objet pour stocker les informations de la ligne
 				Data datas = new Data(this.getUrlFichier());
-				Boolean trouve = false;
 				
-				for(Integer i=0; splitter.hasMoreTokens() ;i++){
-					String data = (String) splitter.nextToken();
-					data = data.replace("\"", "");
+				Boolean trouve = false; //a-t-on trouve une adresse s'approchant de l'adresse recherchee?
+				
+				for(Integer i=0; splitter.hasMoreTokens() ;i++){ //pour chaque champs
+					String data = (String) splitter.nextToken(); //on le recupere dans une chaine de caracteres
+					data = data.replace("\"", ""); //on enleve les guillemets
 					switch(i){
 					
 						case 0://rivoli
 							if(!(data.isEmpty())){
-								datas.setRivoli(data);
+								datas.setRivoli(data); //on enregistre le rivoli
 							}
 							break;
 							
 						case 1://libelle
 							if(!(data.isEmpty())){
 								String[] splitterLibelle = data.split(" ");
-								datas.setTypeRue(splitterLibelle[0]);
+								datas.setTypeRue(splitterLibelle[0]); // on enregistre le type de rue (au cas ou on voudrait changer la recherche par la suite)
 								datas.setLibelle(data);
 							}
 							break;
@@ -253,11 +282,11 @@ public class Data implements Serializable{
 							if(!(data.isEmpty())){
 								datas.setMotDirecteur(data);
 							}
-							if(!(this.motDirecteur.equals(""))){
-								String[] splitterMotDirecteur = this.motDirecteur.toUpperCase().split(" ");
+							if(!(this.motDirecteur.equals(""))){ //si on fait la recherche par le mot directeur
+								String[] splitterMotDirecteur = this.motDirecteur.toUpperCase().split(" "); //on enleve la casse
 								
 								for(String s : splitterMotDirecteur){
-									//on enl�ve les �ventuelles apostrophes
+									//on enleve les eventuelles apostrophes
 									if (s.matches(".*'.*"))
 										s = s.split("'")[1];
 									
@@ -306,6 +335,7 @@ public class Data implements Serializable{
 							
 						case 10://bleuJourCollecte
 							if(!(data.isEmpty())){
+								//on recupere les jours en enlevant les et et les -
 								String[] splitterBleu1 = data.split(" et ");
 								for(String data1 : splitterBleu1){
 									String[] splitterBleu2 = data1.split(" - ");
@@ -347,8 +377,8 @@ public class Data implements Serializable{
 							break;
 					}
 				}
-				if(trouve){
-					dataLine.add(datas);
+				if(trouve){ //si la ligne parcourue peut correspondre a l'adresse recherchee 
+					dataLine.add(datas); //on ajoute l'adresse a la liste d'adresses potentielles
 				}
 			}
 		} catch (IOException e) {
@@ -358,7 +388,16 @@ public class Data implements Serializable{
 		return dataLine;
 	}
 	
-	public Jours parsageSecond(Integer numAdresse){
+	/*
+	 * Fonction parsageSecond qui servira à rechercher les jours de collecte 
+	 * pour les poubelles bleus et jaunes
+	 * Elle renverra un objet Jours comprenant deux attributs de type ArrayList<Integer>
+	 * contenant respectivement les jours de collecte pour les poubelles et
+	 * les jours de collectes pour les poubelles jaunes
+	 * en fonction du rivoli de l'adresse de l'utilisateur ainsi que de son numero de logement
+	 */
+	public Jours parsageSecond(String rivoli,Integer numAdresse){
+		this.setRivoli(rivoli);
 		//renseignements sur le numAdresse
 		Boolean numAdresse_est_pair = false;
 		if(numAdresse%2 == 0){
@@ -558,8 +597,7 @@ public class Data implements Serializable{
 	public static void main(String[] args) {
 		//exemple pour rentrer les donn�es dans la BD
 		Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
-		data4.setMotDirecteur("Boulevard Albert Einstein");
-		ArrayList<Data> dataparsee = data4.parsageFirst();
+		ArrayList<Data> dataparsee = data4.parsageFirst("Boulevard Albert Einstein");
 		for(Integer index = 0 ; index<dataparsee.size() ; index++){
 			System.out.println("Correspondance n°"+ (index + 1) + " pour Boulevard Albert Einstein");
 			String rivoli = dataparsee.get(index).getRivoli();
@@ -585,9 +623,8 @@ public class Data implements Serializable{
 			System.out.println(jauneJourCollecte);
 		}
 		
-		Data data1 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
-		data1.setRivoli("0200"); //bien penser à mettre le rivoli sur 4 chiffres
-		Jours jours = data1.parsageSecond(10);
+		data4.resetData();
+		Jours jours = data4.parsageSecond("0200",10);//bien penser à mettre le rivoli sur 4 chiffres
 		ArrayList<String> joursBleu = jours.getJoursBleu();
 		ArrayList<String> joursJaune = jours.getJoursJaune();
 		System.out.println("les jours pour le rivoli 200 :");
