@@ -26,9 +26,34 @@ public class Data implements Serializable{
 	private String observationsJourCollecte;
 	private String quartier;
 	private String observationsQuartier;
-	
+
 	private String urlFichier;
 
+	private class Jours {
+		private ArrayList<String> listeJoursBleu;
+		private ArrayList<String> listeJoursJaune;
+		
+		private Jours(){
+			listeJoursBleu = new ArrayList<String>();
+			listeJoursJaune = new ArrayList<String>();
+		}
+		
+		private void addJourBleu(String jourBleu){
+			this.listeJoursBleu.add(jourBleu);
+		}
+		
+		private void addJourJaune(String jourJaune){
+			this.listeJoursJaune.add(jourJaune);
+		}
+		
+		private ArrayList<String> getJoursBleu(){
+			return this.listeJoursBleu;
+		}
+		
+		private ArrayList<String> getJoursJaune(){
+			return this.listeJoursJaune;
+		}
+	}
 	
 	public Data(String urlFichier){
 		this.rivoli = "";
@@ -183,7 +208,7 @@ public class Data implements Serializable{
 		return this.urlFichier;
 	}
 
-	public ArrayList<Data> parsageAll(){
+	public ArrayList<Data> parsageFirst(){
 		ArrayList<Data> dataLine = new ArrayList<Data>();
 		try {
 			URL url = new URL(this.getUrlFichier());
@@ -191,7 +216,6 @@ public class Data implements Serializable{
 			httpConnection.connect();
 			InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream());
 			BufferedReader reader = new BufferedReader(isr);
-			
 			
 			String line = "";
 			//pour chaque ligne
@@ -205,13 +229,13 @@ public class Data implements Serializable{
 					data = data.replace("\"", "");
 					switch(i){
 					
-						case 0://controle rivoli
+						case 0://rivoli
 							if(!(data.isEmpty())){
 								datas.setRivoli(data);
 							}
 							break;
 							
-						case 1://controle libelle
+						case 1://libelle
 							if(!(data.isEmpty())){
 								String[] splitterLibelle = data.split(" ");
 								datas.setTypeRue(splitterLibelle[0]);
@@ -219,7 +243,7 @@ public class Data implements Serializable{
 							}
 							break;
 							
-						case 2://controle commune
+						case 2://commune
 							if(!(data.isEmpty())){
 								datas.setCommune(data);
 							}
@@ -233,7 +257,7 @@ public class Data implements Serializable{
 								String[] splitterMotDirecteur = this.motDirecteur.toUpperCase().split(" ");
 								
 								for(String s : splitterMotDirecteur){
-									//on enlève les éventuelles apostrophes
+									//on enlï¿½ve les ï¿½ventuelles apostrophes
 									if (s.matches(".*'.*"))
 										s = s.split("'")[1];
 									
@@ -244,43 +268,43 @@ public class Data implements Serializable{
 							}
 							break;
 							
-						case 4://controle statut
+						case 4://statut
 							if(!(data.isEmpty())){
 								datas.setStatut(data);
 							}
 							break;
 							
-						case 5://controle tenant
+						case 5://tenant
 							if(!(data.isEmpty())){
 								datas.setTenant(data);
 							}
 							break;
 							
-						case 6://controle aboutissant
+						case 6://aboutissant
 							if(!(data.isEmpty())){
 								datas.setAboutissant(data);
 							}
 							break;
 							
-						case 7://controle prestationCollecte
+						case 7://prestationCollecte
 							if(!(data.isEmpty())){
 								datas.setPrestationCollecte(data);
 							}
 							break;
 							
-						case 8://controle typeCollecte
+						case 8://typeCollecte
 							if(!(data.isEmpty())){
 								datas.setTypeCollecte(data);
 							}
 							break;
 							
-						case 9://controle observationsPrestationCollecte
+						case 9://observationsPrestationCollecte
 							if(!(data.isEmpty())){
 								datas.setObservationsPrestationCollecte(data);
 							}
 							break;
 							
-						case 10://controle bleuJourCollecte
+						case 10://bleuJourCollecte
 							if(!(data.isEmpty())){
 								String[] splitterBleu1 = data.split(" et ");
 								for(String data1 : splitterBleu1){
@@ -292,7 +316,7 @@ public class Data implements Serializable{
 							}
 							break;
 							
-						case 11://controle jauneJourCollecte
+						case 11://jauneJourCollecte
 							if(!(data.isEmpty())){
 								String[] splitterJaune1 = data.split(" et ");
 								for(String data1 : splitterJaune1){
@@ -304,19 +328,19 @@ public class Data implements Serializable{
 							}
 							break;
 							
-						case 12://controle observationsJourCollecte
+						case 12://observationsJourCollecte
 							if(!(data.isEmpty())){
 								datas.setObservationsJourCollecte(data);
 							}
 							break;
 							
-						case 13://controle quartier
+						case 13://quartier
 							if(!(data.isEmpty())){
 								datas.setQuartier(data);
 							}
 							break;
 							
-						case 14://controle observationsQuartier
+						case 14://observationsQuartier
 							if(!(data.isEmpty())){
 								datas.setObservationsQuartier(data);
 							}
@@ -334,7 +358,200 @@ public class Data implements Serializable{
 		return dataLine;
 	}
 	
-	
+	public Jours parsageSecond(Integer numAdresse){
+		//renseignements sur le numAdresse
+		Boolean numAdresse_est_pair = false;
+		if(numAdresse%2 == 0){
+			numAdresse_est_pair = true;
+		}
+		
+		Jours jours = new Jours();
+		try {
+			URL url = new URL(this.getUrlFichier());
+			HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
+			httpConnection.connect();
+			InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream());
+			BufferedReader reader = new BufferedReader(isr);
+			
+			String line = "";
+			//pour chaque ligne
+			while ((line = reader.readLine()) != null) {
+				StringTokenizer splitter = new StringTokenizer(line, ",");
+				Boolean rivoli_trouve = false;
+				Boolean ligne_trouvee = false;
+				
+				for(Integer i=0; splitter.hasMoreTokens() ;i++){
+					Boolean bleuESTjaune = false;
+					Boolean obsPresColAparser = false;
+					Boolean bleusMixte = false;
+					String data = (String) splitter.nextToken();
+					data = data.replace("\"", "");
+					switch(i){
+					
+						case 0://controle rivoli
+							if( !(data.isEmpty()) && (this.getRivoli() != "") && (data.equals(this.getRivoli())) ){
+								rivoli_trouve = true;
+							}
+							break;
+							
+						case 1://libelle
+							break;
+							
+						case 2://commune
+							break;
+							
+						case 3://motDirecteur
+							break;
+							
+						case 4://statut
+							break;
+							
+						case 5://tenant
+							break;
+							
+						case 6://aboutissant
+							break;
+							
+						case 7://controle prestationCollecte
+							if( !(data.isEmpty()) && rivoli_trouve ){
+								if(data.replaceAll("'","").equals("TRISAC") ||
+										data.equals("Centre-ville en C3") ||
+										data.equals("extension trisac 2013")){
+									bleuESTjaune = true;
+								}
+							}
+							break;
+							
+						case 8://controle typeCollecte
+							if( !(data.isEmpty()) && rivoli_trouve ){
+								if(data.equals("pluriel")){
+									obsPresColAparser = true;
+								}
+								else{
+									ligne_trouvee = true;
+								}
+							}
+							break;
+							
+						case 9://controle observationsPrestationCollecte
+							if( !(data.isEmpty()) && rivoli_trouve && obsPresColAparser ){
+								if(obsPresColAparser){
+									System.out.println("c'est la merde!");
+									ObservationsParsage obs = new ObservationsParsage(data);
+									PlageNum plageNum = obs.determinePlageNum();
+									if(numAdresse_est_pair){
+										if((numAdresse >= plageNum.debutPair || 
+												numAdresse <= plageNum.finPair ||
+												plageNum.numerosSupplementaires.contains(numAdresse)) &&
+												! plageNum.numerosExclus.contains(numAdresse)){
+											ligne_trouvee = true;
+										}
+									}
+									else{
+										if((numAdresse >= plageNum.debutImpair || 
+												numAdresse <= plageNum.finImpair ||
+												plageNum.numerosSupplementaires.contains(numAdresse)) &&
+												! plageNum.numerosExclus.contains(numAdresse)){
+											ligne_trouvee = true;
+										}
+									}
+								}
+							}
+							break;
+							
+						case 10://controle bleuJourCollecte
+							if( !(data.isEmpty()) && rivoli_trouve && ligne_trouvee){
+								if(!data.equals("mixte : voir prÃ©cisions")){
+									String[] splitterBleu1 = data.split(" et ");
+									for(String data1 : splitterBleu1){
+										String[] splitterBleu2 = data1.split(" - ");
+										for(String data2 : splitterBleu2){
+											jours.addJourBleu(data2);
+											if(bleuESTjaune){
+												jours.addJourJaune(data2);
+											}
+										}
+									}
+								}
+								else{
+									bleusMixte = true;
+								}
+							}
+							break;
+							
+						case 11://controle jauneJourCollecte
+							if( !(data.isEmpty()) && rivoli_trouve && ligne_trouvee ){
+								String[] splitterJaune1 = data.split(" et ");
+								for(String data1 : splitterJaune1){
+									String[] splitterJaune2 = data1.split(" - ");
+									for(String data2 : splitterJaune2){
+										jours.addJourJaune(data2);
+									}
+								}
+							}
+							break;
+							
+						case 12://controle observationsJourCollecte
+							if( !(data.isEmpty()) && rivoli_trouve && ligne_trouvee && bleusMixte){
+								ObservationsParsage obs = new ObservationsParsage(data);
+								PlageJour plageJour = obs.determinePlageJour();
+								if(numAdresse_est_pair){
+									if(numAdresse >= plageJour.debutPair1 && numAdresse <= plageJour.finPair1){
+										for(String jour : plageJour.Jours1){
+											jours.addJourBleu(jour);
+											if(bleuESTjaune){
+												jours.addJourJaune(jour);
+											}
+										}
+									}
+									else{
+										if(numAdresse >= plageJour.debutPair2 && numAdresse <= plageJour.finPair2){
+											for(String jour : plageJour.Jours2){
+												jours.addJourBleu(jour);
+												if(bleuESTjaune){
+													jours.addJourJaune(jour);
+												}
+											}
+										}
+									}
+								}
+								else{
+									if(numAdresse >= plageJour.debutImpair1 && numAdresse <= plageJour.finImpair1){
+										for(String jour : plageJour.Jours1){
+											jours.addJourBleu(jour);
+											if(bleuESTjaune){
+												jours.addJourJaune(jour);
+											}
+										}
+									}
+									else{
+										if(numAdresse >= plageJour.debutImpair2 && numAdresse <= plageJour.finImpair2){
+											for(String jour : plageJour.Jours2){
+												jours.addJourBleu(jour);
+												if(bleuESTjaune){
+													jours.addJourJaune(jour);
+												}
+											}
+										}
+									}
+								}
+							}
+							break;
+							
+						case 13://quartier
+							break;
+							
+						case 14://observationsQuartier
+							break;
+					}
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jours;
+	}
 
 	
 	
@@ -342,7 +559,7 @@ public class Data implements Serializable{
 		//exemple pour rentrer les donnï¿½es dans la BD
 		Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
 		data4.setMotDirecteur("Boulevard Albert Einstein");
-		ArrayList<Data> dataparsee = data4.parsageAll();
+		ArrayList<Data> dataparsee = data4.parsageFirst();
 		for(Integer index = 0 ; index<dataparsee.size() ; index++){
 			System.out.println("Correspondance nÂ°"+ (index + 1) + " pour Boulevard Albert Einstein");
 			String rivoli = dataparsee.get(index).getRivoli();
@@ -366,6 +583,19 @@ public class Data implements Serializable{
 			System.out.println(rivoli + " " + libelle + "\n" + commune + motDirecteur + statut + "...");
 			System.out.println(bleuJourCollecte);
 			System.out.println(jauneJourCollecte);
+		}
+		
+		Data data1 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
+		data1.setRivoli("0200"); //bien penser Ã  mettre le rivoli sur 4 chiffres
+		Jours jours = data1.parsageSecond(10);
+		ArrayList<String> joursBleu = jours.getJoursBleu();
+		ArrayList<String> joursJaune = jours.getJoursJaune();
+		System.out.println("les jours pour le rivoli 200 :");
+		for(String jour : joursBleu){
+			System.out.println(jour);
+		}
+		for(String jour : joursJaune){
+			System.out.println(jour);
 		}
 	}
 
