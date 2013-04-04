@@ -14,6 +14,11 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Servlet pour envoyer les mails aux utilisateurs
+ * @author Nico
+ *
+ */
 public class MailServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

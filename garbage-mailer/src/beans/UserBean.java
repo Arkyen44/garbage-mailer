@@ -9,7 +9,11 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
-
+/**
+ * Ce bean représente une habitation possédée par le user.
+ * @author Nico
+ *
+ */
 @PersistenceCapable
 public class UserBean {
 	@PrimaryKey

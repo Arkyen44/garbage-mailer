@@ -6,8 +6,19 @@ import javax.jdo.PersistenceManager;
 
 import beans.UserBean;
 
+/**
+ * Ensemble des requêtes 
+ * @author Nico
+ *
+ */
 public final class Requete {
 	
+	/**
+	 * Retourne une liste de tuple contenant le nom de l'utilisateur.
+	 * Si l'utilisateur n'est pas présent, la liste renvoyée est nulle.
+	 * @param name nom de l'utilisateur
+	 * @return une liste de tuple contenant le nom de l'utilisateur
+	 */
 	public static List<UserBean> getUser(String name){
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		String query =
@@ -21,6 +32,11 @@ public final class Requete {
 			return liste;
 	}
 	
+	/**
+	 * Supprime une adresse en base de donnée
+	 * @param rivo identifiant de l'adresse
+	 * @param name nom de l'adresse
+	 */
 	public static void delAddress(String rivo, String name){
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		String query =
@@ -33,6 +49,14 @@ public final class Requete {
 		pm.close();
 	}
 	
+	/**
+	 * Renvoie vrai si le tuple cherché existe déjà en base de données,
+	 * faux sinon.
+	 * @param userName nom de l'utilisateur
+	 * @param rivolli identifiant de la rue
+	 * @param num numéro de la maison dans la rue
+	 * @return boolean
+	 */
 	public static boolean exist(String userName, String rivolli, String num){
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		String query =

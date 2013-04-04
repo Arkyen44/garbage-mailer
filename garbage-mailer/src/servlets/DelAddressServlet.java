@@ -10,6 +10,11 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import classes.Requete;
 
+/**
+ * Suppression de tuple (adresse, nomUtilisateur) en base de donnée
+ * @author Nico
+ *
+ */
 public class DelAddressServlet extends HttpServlet{
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)

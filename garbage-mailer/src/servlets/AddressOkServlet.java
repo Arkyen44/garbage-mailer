@@ -18,6 +18,13 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
+/**
+ * L'adresse a été validée préalablement.
+ * Cette servlet va vérifier que l'adresse saisie n'est pas déjà en base de données.
+ * Si elle n'y est pas, elle est ajoutée.
+ * @author Nico
+ *
+ */
 public class AddressOkServlet extends HttpServlet{
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

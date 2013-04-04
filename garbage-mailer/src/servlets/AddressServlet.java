@@ -16,6 +16,11 @@ import classes.Data;
 import classes.PMF;
 import classes.Requete;
 
+/**
+ * parsage du fichier et validation de l'existence de l'adresse
+ * @author Nico
+ *
+ */
 public class AddressServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
