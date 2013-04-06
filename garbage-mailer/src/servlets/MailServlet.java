@@ -21,7 +21,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class MailServlet extends HttpServlet {
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 
 		Properties props = new Properties();

@@ -29,31 +29,7 @@ public class Data implements Serializable{
 
 	private String urlFichier;
 
-	private class Jours {
-		private ArrayList<String> listeJoursBleu;
-		private ArrayList<String> listeJoursJaune;
-		
-		private Jours(){
-			listeJoursBleu = new ArrayList<String>();
-			listeJoursJaune = new ArrayList<String>();
-		}
-		
-		private void addJourBleu(String jourBleu){
-			this.listeJoursBleu.add(jourBleu);
-		}
-		
-		private void addJourJaune(String jourJaune){
-			this.listeJoursJaune.add(jourJaune);
-		}
-		
-		private ArrayList<String> getJoursBleu(){
-			return this.listeJoursBleu;
-		}
-		
-		private ArrayList<String> getJoursJaune(){
-			return this.listeJoursJaune;
-		}
-	}
+
 	
 	public Data(String urlFichier){
 		this.rivoli = "";
@@ -227,7 +203,7 @@ public class Data implements Serializable{
 		this.observationsQuartier = "";
 	}
 	
-	/*
+	/**
 	 * Fonction parsageFirst qui servira a parser tout le fichier
 	 * pour trouver l'adresse recherchee par le visiteur
 	 * Elle renvoie une liste d'adresses succeptible de comprendre celle recherchee
@@ -388,7 +364,7 @@ public class Data implements Serializable{
 		return dataLine;
 	}
 	
-	/*
+	/**
 	 * Fonction parsageSecond qui servira à rechercher les jours de collecte 
 	 * pour les poubelles bleus et jaunes
 	 * Elle renverra un objet Jours comprenant deux attributs de type ArrayList<Integer>

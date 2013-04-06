@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import beans.UserBean;
 import classes.Data;
+import classes.Jours;
 import classes.PMF;
 import classes.Requete;
 
@@ -50,6 +51,27 @@ public class AddressOkServlet extends HttpServlet{
 					
 			}
 		}
+		
+		if (idRue.length() == 3) idRue = "0"+idRue;
+		if (idRue.length() == 2) idRue = "00"+idRue;
+		if (idRue.length() == 1) idRue = "000"+idRue;
+		
+		Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
+		Jours jours = data4.parsageSecond(idRue,Integer.parseInt(num));//bien penser Ã  mettre le rivoli sur 4 chiffres
+		ArrayList<String> joursBleu = jours.getJoursBleu();
+		ArrayList<String> joursJaune = jours.getJoursJaune();
+
+		String bleu = "";
+		String jaune = "";
+		
+		for(String jour : joursBleu){
+			bleu += jour+" ";
+		}
+		for(String jour : joursJaune){
+			jaune += jour+" ";
+		}
+		
+		
 		//On récupère le nom de l'utilisateur connecté à google
 		UserService userService = UserServiceFactory.getUserService();
 		User userGoogle = userService.getCurrentUser();		
@@ -63,8 +85,8 @@ public class AddressOkServlet extends HttpServlet{
 				ub.setNumero(num);
 				ub.setAddress(address.getLibelle());
 				ub.setRivolli(address.getRivoli());
-				ub.setBleu(address.getBleuJourCollecte());
-				ub.setJaune(address.getJauneJourCollecte());
+				ub.setBleu(bleu);
+				ub.setJaune(jaune);
 				PersistenceManager pm = PMF.get().getPersistenceManager();
 			    try {
 			    	pm.makePersistent(ub);
