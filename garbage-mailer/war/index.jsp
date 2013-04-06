@@ -79,7 +79,7 @@
 	</form>
 	<br />
 
-	<form action="/mail" method="post">
+	<form action="/mail" method="get">
 		<div>
 			<input type="submit" value="TEST - Envoyer un mail à nicolas.dufour.ndr" />
 		</div>

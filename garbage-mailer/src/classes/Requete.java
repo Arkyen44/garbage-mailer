@@ -1,5 +1,6 @@
 package classes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -64,11 +65,52 @@ public final class Requete {
 			 	" WHERE name == '"+userName+"' && rivolli == '"+rivolli+"' && numero == '"+ num +"'";
 		
 		List<UserBean> liste = (List<UserBean>) pm.newQuery(query).execute();
+		pm.close();
 		if (liste != null){
 			if (liste.size()>0)
 					return true;
 			else return false;
 		}else return false;
 				
+	}
+	
+	public static List<UserBean> destinatairesBleu(String jour){
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		String query =
+      			"SELECT FROM " + UserBean.class.getName();
+		List<UserBean> liste = (List<UserBean>) pm.newQuery(query).execute();
+		List<UserBean> listeBleue = new ArrayList<UserBean>();
+		
+		for (UserBean ub : liste){
+			if (ub.getBleu().contains(jour)){
+				listeBleue.add(ub);
+			}
+		}
+		pm.close();
+		if (listeBleue != null){
+			if (listeBleue.size()>0)
+					return listeBleue;
+			else return null;
+		}else return null;
+	}
+	
+	public static List<UserBean> destinatairesJaune(String jour){
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		String query =
+      			"SELECT FROM " + UserBean.class.getName();
+		List<UserBean> liste = (List<UserBean>) pm.newQuery(query).execute();
+		List<UserBean> listeJaune = new ArrayList<UserBean>();
+		
+		for (UserBean ub : liste){
+			if (ub.getJaune().contains(jour)){
+				listeJaune.add(ub);
+			}
+		}
+		pm.close();
+		if (listeJaune != null){
+			if (listeJaune.size()>0)
+					return listeJaune;
+			else return null;
+		}else return null;
 	}
 }
