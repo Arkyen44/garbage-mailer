@@ -575,9 +575,9 @@ public class Data implements Serializable{
 	public static void main(String[] args) {
 		//exemple pour rentrer les donn�es dans la BD
 		Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
-		ArrayList<Data> dataparsee = data4.parsageFirst("Boulevard Albert Einstein");
+		ArrayList<Data> dataparsee = data4.parsageFirst("Abélard");
 		for(Integer index = 0 ; index<dataparsee.size() ; index++){
-			System.out.println("Correspondance n°"+ (index + 1) + " pour Boulevard Albert Einstein");
+			System.out.println("Correspondance n°"+ (index + 1) + " pour Abélard");
 			String rivoli = dataparsee.get(index).getRivoli();
 			String typeRue = dataparsee.get(index).getTypeRue();
 			String libelle = dataparsee.get(index).getLibelle();
