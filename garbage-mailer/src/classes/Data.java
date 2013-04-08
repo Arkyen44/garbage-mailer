@@ -265,8 +265,10 @@ public class Data implements Serializable{
 									//on enleve les eventuelles apostrophes
 									if (s.matches(".*'.*"))
 										s = s.split("'")[1];
+									String s1 = StringOperation.sansAccent(s);
+									String data1 = StringOperation.sansAccent(data);
 									
-									if(data.toUpperCase().equals(s)){
+									if(data1.toUpperCase().equals(s1)){
 										trouve = true;
 									}
 								}
