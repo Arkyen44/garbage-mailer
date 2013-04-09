@@ -31,7 +31,7 @@ if (userGoogle != null){
 		<%
 		for (Data d : dataToChoose){
 			%>
-			<input name="choixAdresse" type="radio" value="<%= d.getRivoli() %>"><%= d.getLibelle() %></option>
+			<input name="choixAdresse" checked type="radio" value="<%= d.getRivoli() %>"><%= d.getLibelle() %></option>
 			<br />
 			<% 
 		}
