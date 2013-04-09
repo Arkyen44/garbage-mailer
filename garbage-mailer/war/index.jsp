@@ -79,12 +79,6 @@
 	</form>
 	<br />
 
-	<form action="/mail" method="get">
-		<div>
-			<input type="submit" value="TEST - Envoyer un mail à nicolas.dufour.ndr" />
-		</div>
-	</form>
-
 	<a href="<%=userService.createLogoutURL(request.getRequestURI())%>">deconnexion</a>.
 	<%
 		//si l'utilisateur n'est pas loggué
