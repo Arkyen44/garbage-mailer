@@ -6,16 +6,16 @@ public class PlageJour {
 
 	public Integer debutPair1 = 0;
 	public Integer finPair1 = 0;
-	public Integer debutImpair1 = 0;
+	public Integer debutImpair1 = 1;
 	public Integer finImpair1 = 0;
 	
-	public ArrayList<String> Jours1;
+	public ArrayList<String> Jours1 = new ArrayList<String>();
 	
 	public Integer debutPair2 = 0;
 	public Integer finPair2 = 0;
 	public Integer debutImpair2 = 0;
 	public Integer finImpair2 = 0;
 	
-	public ArrayList<String> Jours2;
+	public ArrayList<String> Jours2 = new ArrayList<String>();
 
 }
