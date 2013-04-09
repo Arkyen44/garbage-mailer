@@ -63,7 +63,8 @@ public class MailServlet extends HttpServlet {
 			for (UserBean u : listeBleue){
 				msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
 						"Vos poubelles bleues vont êtres ramassées aujourd'hui, " +
-						"n'oubliez pas de les sortir!";
+						"dans la rue " + u.getAddress()+
+						" n'oubliez pas de les sortir!";
 				try {
 					Message msg = new MimeMessage(session);
 					msg.setFrom(new InternetAddress("nicolas.dufour.ndr@gmail.com",
@@ -86,6 +87,7 @@ public class MailServlet extends HttpServlet {
 			for (UserBean u : listeJaune){
 				msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
 						"Vos poubelles jaunes vont êtres ramassées aujourd'hui, " +
+						"dans la rue " + u.getAddress()+
 						"n'oubliez pas de les sortir!";
 				try {
 					Message msg = new MimeMessage(session);
