@@ -46,47 +46,65 @@ public class MailServlet extends HttpServlet {
 		case 6: jour = "vendredi";
 		case 7: jour = "samedi";
 		}
-
-		System.out.println("nous sommes "+jour);
-		
-		/*
-		 * 
-		 * 
-		 * TEST
-		 * 
-		 * 
-		 * 
-		 * */
-		
-		jour = "vendredi";
 		
 		//on récupère les personnes qui ont un ramassage de poubelle ce jour
 		List<UserBean> listeBleue = new ArrayList<UserBean>();
 		listeBleue = Requete.destinatairesBleu(jour);
 		
 		List<UserBean> listeJaune = new ArrayList<UserBean>();
-		listeBleue = Requete.destinatairesJaune(jour);
+		listeJaune = Requete.destinatairesJaune(jour);
 		
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		String msgBody = "Test de l'envoi de mail";
-
-		try {
-			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("nicolas.dufour.ndr@gmail.com",
-					"Example.com Admin"));
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					"nicolas.dufour.ndr@gmail.com", "Mr. User"));
-			msg.setSubject("Poubelle!");
-			msg.setText(msgBody);
-			Transport.send(msg);
-
-		} catch (AddressException e) {
-			// ...
-		} catch (MessagingException e) {
-			// ...
+		String msgBody = "";
+		
+		if (listeBleue != null){
+			for (UserBean u : listeBleue){
+				msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
+						"Vos poubelles bleues vont êtres ramassées aujourd'hui, " +
+						"n'oubliez pas de les sortir!";
+				try {
+					Message msg = new MimeMessage(session);
+					msg.setFrom(new InternetAddress("nicolas.dufour.ndr@gmail.com",
+							"Example.com Admin"));
+					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
+							u.getName(), "Mr. User"));
+					msg.setSubject("Ramassage de vos poubelles!");
+					msg.setText(msgBody);
+					Transport.send(msg);
+	
+				} catch (AddressException e) {
+					// ...
+				} catch (MessagingException e) {
+					// ...
+				}
+			}
 		}
+		
+		if (listeJaune != null){
+			for (UserBean u : listeJaune){
+				msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
+						"Vos poubelles jaunes vont êtres ramassées aujourd'hui, " +
+						"n'oubliez pas de les sortir!";
+				try {
+					Message msg = new MimeMessage(session);
+					msg.setFrom(new InternetAddress("nicolas.dufour.ndr@gmail.com",
+							"http://garbage-mailer.appspot.com"));
+					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
+							u.getName(), u.getName().substring(0, u.getName().indexOf("@"))));
+					msg.setSubject("Ramassage de vos poubelles!");
+					msg.setText(msgBody);
+					Transport.send(msg);
+	
+				} catch (AddressException e) {
+					// ...
+				} catch (MessagingException e) {
+					// ...
+				}
+			}
+		}
+		
 		response.sendRedirect("index.jsp");
 	}
 }
