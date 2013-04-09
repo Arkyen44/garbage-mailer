@@ -396,11 +396,11 @@ public class Data implements Serializable{
 				StringTokenizer splitter = new StringTokenizer(line, ",");
 				Boolean rivoli_trouve = false;
 				Boolean ligne_trouvee = false;
+				Boolean bleusMixte = false;
 				
 				for(Integer i=0; splitter.hasMoreTokens() ;i++){
 					Boolean bleuESTjaune = false;
 					Boolean obsPresColAparser = false;
-					Boolean bleusMixte = false;
 					String data = (String) splitter.nextToken();
 					data = data.replace("\"", "");
 					switch(i){
@@ -453,7 +453,6 @@ public class Data implements Serializable{
 						case 9://controle observationsPrestationCollecte
 							if( !(data.isEmpty()) && rivoli_trouve && obsPresColAparser ){
 								if(obsPresColAparser){
-									System.out.println("c'est la merde!");
 									ObservationsParsage obs = new ObservationsParsage(data);
 									PlageNum plageNum = obs.determinePlageNum();
 									if(numAdresse_est_pair){
@@ -602,10 +601,13 @@ public class Data implements Serializable{
 		}
 		
 		data4.resetData();
-		Jours jours = data4.parsageSecond("0200",10);//bien penser à mettre le rivoli sur 4 chiffres
+		//changer le rivoli et le num d'adresse pour tester
+		//mais choisir un rivoli qui n'a pas d'observationPrestationCollecte
+		//car pas encore géré
+		Jours jours = data4.parsageSecond("6128",107);//bien penser à mettre le rivoli sur 4 chiffres
 		ArrayList<String> joursBleu = jours.getJoursBleu();
 		ArrayList<String> joursJaune = jours.getJoursJaune();
-		System.out.println("les jours pour le rivoli 200 :");
+		System.out.println("les jours pour le rivoli 6128 :");
 		for(String jour : joursBleu){
 			System.out.println(jour);
 		}
