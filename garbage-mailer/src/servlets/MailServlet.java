@@ -64,7 +64,9 @@ public class MailServlet extends HttpServlet {
 				msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
 						"Vos poubelles bleues vont êtres ramassées aujourd'hui, " +
 						"dans la rue " + u.getAddress()+
-						" n'oubliez pas de les sortir!";
+						" n'oubliez pas de les sortir!" +
+						"\n\n\n\n\n\n Je ne souhaite plus recevoir de mail concernant cette adresse : " +
+						"http://garbage-mailer.appspot.com/delAddress?idDel="+u.getRivolli();
 				try {
 					Message msg = new MimeMessage(session);
 					msg.setFrom(new InternetAddress("nicolas.dufour.ndr@gmail.com",
@@ -88,7 +90,9 @@ public class MailServlet extends HttpServlet {
 				msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
 						"Vos poubelles jaunes vont êtres ramassées aujourd'hui, " +
 						"dans la rue " + u.getAddress()+
-						"n'oubliez pas de les sortir!";
+						"n'oubliez pas de les sortir!" +
+						"\n\n\n\n\n\n Je ne souhaite plus recevoir de mail concernant cette adresse : " +
+						"http://garbage-mailer.appspot.com/delAddress?idDel="+u.getRivolli();
 				try {
 					Message msg = new MimeMessage(session);
 					msg.setFrom(new InternetAddress("nicolas.dufour.ndr@gmail.com",
