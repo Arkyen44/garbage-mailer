@@ -74,10 +74,11 @@ public final class Requete {
 				
 	}
 	
-	public static List<UserBean> destinatairesBleu(String jour){
+	public static List<UserBean> destinatairesBleu(String jour, String mail){
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		String query =
-      			"SELECT FROM " + UserBean.class.getName();
+      			"SELECT FROM " + UserBean.class.getName() +
+      			" WHERE name == '"+mail+"'";
 		List<UserBean> liste = (List<UserBean>) pm.newQuery(query).execute();
 		List<UserBean> listeBleue = new ArrayList<UserBean>();
 		
@@ -94,10 +95,11 @@ public final class Requete {
 		}else return null;
 	}
 	
-	public static List<UserBean> destinatairesJaune(String jour){
+	public static List<UserBean> destinatairesJaune(String jour, String mail){
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		String query =
-      			"SELECT FROM " + UserBean.class.getName();
+      			"SELECT FROM " + UserBean.class.getName() +
+      			" WHERE name == '"+mail+"'";
 		List<UserBean> liste = (List<UserBean>) pm.newQuery(query).execute();
 		List<UserBean> listeJaune = new ArrayList<UserBean>();
 		
