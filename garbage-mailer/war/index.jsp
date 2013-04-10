@@ -31,7 +31,7 @@
 		<div id="menu">
 			<ul>
 				<li class="current_page_item"><a href="index.jsp">Homepage</a></li>
-				<li><a href="apropos.jsp">A propos</a></li>
+				<li><a href="aPropos.jsp">A propos</a></li>
 
 				<%
 				//S'il est loggué
