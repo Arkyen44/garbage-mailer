@@ -308,6 +308,8 @@ public class Data implements Serializable{
 	 * Fonction parsageFirst qui servira a parser tout le fichier
 	 * pour trouver l'adresse recherchee par le visiteur
 	 * Elle renvoie une liste d'adresses succeptible de comprendre celle recherchee
+	 * @param motDirecteur
+	 * @return
 	 */
 	public ArrayList<Data> parsageFirst(String motDirecteur){
 		this.setMotDirecteur(motDirecteur); //recherche sur le mot directeur

@@ -43,20 +43,18 @@ public class MailServlet extends HttpServlet {
 		
 		String jour="";
 		String jour_special="";
+		
+		//Dans le switch, on décale les jours pour pouvoir envoyer un mail la veille
 		switch (j) {
 			case 1: {
-				jour = "dimanche";
-				break;
-			}
-			case 2: {
 				jour = "lundi";
 				break;
 			}
-			case 3: {
+			case 2: {
 				jour = "mardi";
 				break;
 			}
-			case 4: {
+			case 3: {
 				jour = "mercredi";
 				if (paire){
 					jour_special="merc_sem_paires";
@@ -65,16 +63,21 @@ public class MailServlet extends HttpServlet {
 				}
 				break;
 			}
-			case 5: {
+			case 4: {
 				jour = "jeudi";
+				
 				break;
 			}
-			case 6: {
+			case 5: {
 				jour = "vendredi";
 				break;
 			}
-			case 7: {
+			case 6: {
 				jour = "samedi";
+				break;
+			}
+			case 7: {
+				jour = "dimanche";
 				break;
 			}
 		}
@@ -88,10 +91,10 @@ public class MailServlet extends HttpServlet {
 		
 		//permet de récupérer les adresses dont les jours sont merc_sem_paires ou merc_sem_impaires
 		List<UserBean> listeBleueSpeciale = new ArrayList<UserBean>();
-		listeBleue = Requete.destinatairesBleu(jour_special);
+		listeBleueSpeciale = Requete.destinatairesBleu(jour_special);
 		//permet de récupérer les adresses dont les jours sont merc_sem_paires ou merc_sem_impaires
 		List<UserBean> listeJauneSpeciale = new ArrayList<UserBean>();
-		listeJaune = Requete.destinatairesJaune(jour_special);
+		listeJauneSpeciale = Requete.destinatairesJaune(jour_special);
 		
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
@@ -101,7 +104,7 @@ public class MailServlet extends HttpServlet {
 		if (listeBleue != null){
 			for (UserBean u : listeBleue){
 				msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
-						"Vos poubelles bleues vont êtres ramassées aujourd'hui, " +
+						"Vos poubelles bleues vont êtres ramassées demain, " +
 						"dans la rue " + u.getAddress()+
 						" n'oubliez pas de les sortir!" +
 						"\n\n\n\n\n\n Je ne souhaite plus recevoir de mail concernant cette adresse : " +
@@ -129,9 +132,9 @@ public class MailServlet extends HttpServlet {
 		if (listeJaune != null){
 			for (UserBean u : listeJaune){
 				msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
-						"Vos poubelles jaunes vont êtres ramassées aujourd'hui, " +
+						"Vos poubelles jaunes vont êtres ramassées demain, " +
 						"dans la rue " + u.getAddress()+
-						"n'oubliez pas de les sortir!" +
+						" n'oubliez pas de les sortir!" +
 						"\n\n\n\n\n\n Je ne souhaite plus recevoir de mail concernant cette adresse : " +
 						"http://garbage-mailer.appspot.com/delAddress?idDel="+u.getRivolli();
 				try {
@@ -158,7 +161,7 @@ public class MailServlet extends HttpServlet {
 			if (listeBleueSpeciale != null){
 				for (UserBean u : listeBleueSpeciale){
 					msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
-							"Vos poubelles bleues vont êtres ramassées aujourd'hui, " +
+							"Vos poubelles bleues vont êtres ramassées demain, " +
 							"dans la rue " + u.getAddress()+
 							" n'oubliez pas de les sortir!" +
 							"\n\n\n\n\n\n Je ne souhaite plus recevoir de mail concernant cette adresse : " +
@@ -184,9 +187,9 @@ public class MailServlet extends HttpServlet {
 			if (listeJauneSpeciale != null){
 				for (UserBean u : listeJauneSpeciale){
 					msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
-							"Vos poubelles jaunes vont êtres ramassées aujourd'hui, " +
+							"Vos poubelles jaunes vont êtres ramassées demain, " +
 							"dans la rue " + u.getAddress()+
-							"n'oubliez pas de les sortir!" +
+							" n'oubliez pas de les sortir!" +
 							"\n\n\n\n\n\n Je ne souhaite plus recevoir de mail concernant cette adresse : " +
 							"http://garbage-mailer.appspot.com/delAddress?idDel="+u.getRivolli();
 					try {
