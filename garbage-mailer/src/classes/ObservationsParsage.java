@@ -100,6 +100,8 @@ public class ObservationsParsage {
 		matcher = expExc1.matcher(observation);
 		if(matcher.find()){
 			plageNum.numerosExclus.add(Integer.parseInt(matcher.group().split("sauf le numero ")[1].split(" ")[0]));
+			plageNum.finPair = 2000;
+			plageNum.finImpair = 1999;
 		}
 		
 		Pattern expExc2 = Pattern.compile("sauf les numeros \\d+-\\d+-\\d+");
@@ -111,6 +113,8 @@ public class ObservationsParsage {
 				String[] numExc = matcher.group().split("-");
 				for(String num : numExc){
 					plageNum.numerosExclus.add(Integer.parseInt(num));
+					plageNum.finPair = 2000;
+					plageNum.finImpair = 1999;
 				}
 			}
 		}
@@ -122,6 +126,8 @@ public class ObservationsParsage {
 			matcher = expExc3.matcher(observation);
 			while(matcher.find()){
 					plageNum.numerosExclus.add(Integer.parseInt(matcher.group()));
+					plageNum.finPair = 2000;
+					plageNum.finImpair = 1999;
 			}
 		}
 		
@@ -134,6 +140,8 @@ public class ObservationsParsage {
 				String[] numExc = matcher.group().split("-");
 				for(String num : numExc){
 					plageNum.numerosExclus.add(Integer.parseInt(num));
+					plageNum.finPair = 2000;
+					plageNum.finImpair = 1999;
 				}
 			}
 		}
@@ -146,6 +154,8 @@ public class ObservationsParsage {
 				String[] numExc = matcher.group().split(" et ");
 				for(String num : numExc){
 					plageNum.numerosExclus.add(Integer.parseInt(num));
+					plageNum.finPair = 2000;
+					plageNum.finImpair = 1999;
 				}
 			}
 		}
@@ -157,6 +167,8 @@ public class ObservationsParsage {
 			matcher = expExc6.matcher(observation);
 			while(matcher.find()){
 					plageNum.numerosExclus.add(Integer.parseInt(matcher.group()));
+					plageNum.finPair = 2000;
+					plageNum.finImpair = 1999;
 			}
 		}
 		
@@ -169,6 +181,8 @@ public class ObservationsParsage {
 				String[] numExc = matcher.group().split(" et ");
 				for(String num : numExc){
 					plageNum.numerosExclus.add(Integer.parseInt(num));
+					plageNum.finPair = 2000;
+					plageNum.finImpair = 1999;
 				}
 			}
 		}
@@ -182,6 +196,8 @@ public class ObservationsParsage {
 				String[] numExc = matcher.group().split(" a ");
 				for(int j = Integer.parseInt(numExc[0]) ; j==Integer.parseInt(numExc[1]) ;j++){
 					plageNum.numerosExclus.add(j);
+					plageNum.finPair = 2000;
+					plageNum.finImpair = 1999;
 				}
 			}
 		}
@@ -195,6 +211,8 @@ public class ObservationsParsage {
 				String[] numExc = matcher.group().split(" et ");
 				for(String num : numExc){
 					plageNum.numerosExclus.add(Integer.parseInt(num));
+					plageNum.finPair = 2000;
+					plageNum.finImpair = 1999;
 				}
 			}
 		}
@@ -224,6 +242,8 @@ public class ObservationsParsage {
 			while(matcher.find()){
 				plageNum.debutImpair = Integer.parseInt(matcher.group().split(" et ")[0]);
 				plageNum.debutPair = Integer.parseInt(matcher.group().split(" et ")[1]);
+				plageNum.finPair = 2000;
+				plageNum.finImpair = 1999;
 			}
 		}
 		
@@ -243,6 +263,8 @@ public class ObservationsParsage {
 		if(matcher.find()){
 			plageNum.debutImpair = Integer.parseInt(matcher.group().split("a partir du numero ")[1]);
 			plageNum.debutPair = Integer.parseInt(matcher.group().split("a partir du numero ")[1]);
+			plageNum.finPair = 2000;
+			plageNum.finImpair = 1999;
 		}
 		
 		Pattern expInt5 = Pattern.compile("^jusqu'au numero \\d+");
@@ -477,4 +499,5 @@ public class ObservationsParsage {
 		
 		return plageJour;
 	}
+
 }
