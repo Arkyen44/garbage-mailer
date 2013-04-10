@@ -735,10 +735,10 @@ public class Data implements Serializable{
 		//changer le rivoli et le num d'adresse pour tester
 		//mais choisir un rivoli qui n'a pas d'observationPrestationCollecte
 		//car pas encore géré
-		Jours jours = data4.parsageSecond("0592",37);//bien penser à mettre le rivoli sur 4 chiffres
+		Jours jours = data4.parsageSecond("0500",31);//bien penser à mettre le rivoli sur 4 chiffres
 		ArrayList<String> joursBleu = jours.getJoursBleu();
 		ArrayList<String> joursJaune = jours.getJoursJaune();
-		System.out.println("les jours pour le rivoli 0592 :");
+		System.out.println("les jours pour le rivoli 0500 :");
 		System.out.println("Bleu :");
 		for(String jour : joursBleu){
 			System.out.println(jour);
