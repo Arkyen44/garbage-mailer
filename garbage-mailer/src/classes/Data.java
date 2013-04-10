@@ -9,8 +9,33 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+/**
+ * Cette classe représente une ligne d'un fichier csv
+ * 
+ * Elle permet grâce à la méthode ParsageFirst(adresseUtilisateur) 
+ * de rechercher une adresse donnée par l'utilisateur
+ * et grâce à la méthode ParsageSecond(rivoli, numéro d'adresse) 
+ * de rechercher les informations
+ * relatives à l'adresse complète de l'utilisateur 
+ * Cette adresse complète sera mémorisée par le numéro d'adresse ainsi que le rivoli de celle-ci.
+ * 
+ * Le rivoli est l'identifiant d'une adresse, mais dans le fichier csv,
+ * il y a parfois plusieurs lignes pour un même rivoli, il est donc nécessaire
+ * d'avoir le numéro d'adresse de l'utilisateur pour retrouver l'adresse correspondante
+ * dans le fichier.
+ * 
+ * 
+ * @author Justine
+ *
+ */
+
 public class Data implements Serializable{
 	private String rivoli;
+	/*
+	 * le type de rue n'est pas un champs du fichier csv 
+	 * mais il peut-être utile de le récupérer
+	 * si on veut faire évoluer la plate-forme dans le futur
+	 */
 	private String typeRue;
 	private String libelle;
 	private String commune;
@@ -30,7 +55,10 @@ public class Data implements Serializable{
 	private String urlFichier;
 
 
-	
+	/**
+	 * Le constructeur de l'objet se fait à partir de l'url du fichier csv
+	 * @param urlFichier
+	 */
 	public Data(String urlFichier){
 		this.rivoli = "";
 		this.typeRue = "";
@@ -52,70 +80,138 @@ public class Data implements Serializable{
 		this.urlFichier = urlFichier;
 	}
 	
-	public void setRivoli(String string){
+	/**
+	 * Setteur du rivoli 
+	 * @param string
+	 */
+	private void setRivoli(String string){
 		this.rivoli = string;
 	}
 	
-	public void setTypeRue(String string){
+	/**
+	 * Setteur du type de rue
+	 * @param string
+	 */
+	private void setTypeRue(String string){
 		this.typeRue = string;
 	}
-	
-	public void setLibelle(String string){
+
+	/**
+	 * Setteur du libelle
+	 * @param string
+	 */
+	private void setLibelle(String string){
 		this.libelle = string;
 	}
-	
-	public void setCommune(String string){
+
+	/**
+	 * Setteur de la commune
+	 * @param string
+	 */
+	private void setCommune(String string){
 		this.commune = string;
 	}
-	
-	public void setMotDirecteur(String string){
+
+	/**
+	 * Setteur du mot directeur
+	 * @param string
+	 */
+	private void setMotDirecteur(String string){
 		this.motDirecteur = string;
 	}
-	
-	public void setStatut(String string){
+
+	/**
+	 * Setteur du statut
+	 * @param string
+	 */
+	private void setStatut(String string){
 		this.statut = string;
 	}
-	
-	public void setTenant(String string){
+
+	/**
+	 * Setteur du tenant
+	 * @param string
+	 */
+	private void setTenant(String string){
 		this.tenant = string;
 	}
-	
-	public void setAboutissant(String string){
+
+	/**
+	 * Setteur de l'aboutissant
+	 * @param string
+	 */
+	private void setAboutissant(String string){
 		this.aboutissant = string;
 	}
-	
-	public void setPrestationCollecte(String string){
+
+	/**
+	 * Setteur de la prestation
+	 * @param string
+	 */
+	private void setPrestationCollecte(String string){
 		this.prestationCollecte = string;
 	}
-	
-	public void setTypeCollecte(String string){
+
+	/**
+	 * Setteur du type de collecte
+	 * @param string
+	 */
+	private void setTypeCollecte(String string){
 		this.typeCollecte = string;
 	}
-	
-	public void setObservationsPrestationCollecte(String string){
+
+	/**
+	 * Setteur du type de l'observation sur la prestation de la collecte
+	 * @param string
+	 */
+	private void setObservationsPrestationCollecte(String string){
 		this.observationsPrestationCollecte = string;
 	}
-	
-	public void setBleuJourCollecte(String string){
+
+	/**
+	 * Setteur des jours de la collecte bleue
+	 * @param string
+	 */
+	private void setBleuJourCollecte(String string){
 		this.bleuJourCollecte += " " + string;
 	}
-	
-	public void setJauneJourCollecte(String string){
+
+	/**
+	 * Setteur des jours de la collecte bleue
+	 * @param string
+	 */
+	private void setJauneJourCollecte(String string){
 		this.jauneJourCollecte += " " + string;
 	}
-	
-	public void setObservationsJourCollecte(String string){
+
+	/**
+	 * Setteur de l'observation sur le jour de la collecte
+	 * @param string
+	 */
+	private void setObservationsJourCollecte(String string){
 		this.observationsJourCollecte = string;
 	}
-	
-	public void setQuartier(String string){
+
+	/**
+	 * Setteur du quartier
+	 * @param string
+	 */
+	private void setQuartier(String string){
 		this.quartier = string;
 	}
-	
-	public void setObservationsQuartier(String string){
+
+	/**
+	 * Setteur de l'observation sur le quartier
+	 * @param string
+	 */
+	private void setObservationsQuartier(String string){
 		this.observationsQuartier = string;
 	}
 
+	/**
+	 * Getteurs de tout les attributs de la classe Data
+	 * @return
+	 */
 	public String getRivoli(){
 		return this.rivoli;
 	}
@@ -184,6 +280,11 @@ public class Data implements Serializable{
 		return this.urlFichier;
 	}
 
+	/**
+	 * Méthode permettant de réinitialiser un Data
+	 * Elle permet de reconstruire le Data sans avoir besoin de 
+	 * resaisir l'URL du fichier
+	 */
 	public void resetData(){
 		this.rivoli = "";
 		this.typeRue = "";
@@ -209,20 +310,21 @@ public class Data implements Serializable{
 	 * Elle renvoie une liste d'adresses succeptible de comprendre celle recherchee
 	 */
 	public ArrayList<Data> parsageFirst(String motDirecteur){
-		this.setMotDirecteur(motDirecteur);
-		ArrayList<Data> dataLine = new ArrayList<Data>();
+		this.setMotDirecteur(motDirecteur); //recherche sur le mot directeur
+		ArrayList<Data> dataLine = new ArrayList<Data>(); //liste d'adresses qui sera renvoyée
 		try {
-			//on parcourt le fichier csv present sur le serveur de l'openData grace a son URL
+			//on se connecte au fichier csv present sur le serveur de l'openData grace a son URL
 			URL url = new URL(this.getUrlFichier());
 			HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
 			httpConnection.connect();
+			//on parcourt ce fichier
 			InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream());
 			BufferedReader reader = new BufferedReader(isr);
 			
 			String line = "";
 			//pour chaque ligne du fichier
 			while ((line = reader.readLine()) != null) {
-				//on splitte chaque champs avec , qui est le délimiteur du csv
+				//on splitte chaque champs avec "," qui est le délimiteur du csv
 				StringTokenizer splitter = new StringTokenizer(line, ",");
 				//on cree un objet pour stocker les informations de la ligne
 				Data datas = new Data(this.getUrlFichier());
@@ -231,26 +333,26 @@ public class Data implements Serializable{
 				
 				for(Integer i=0; splitter.hasMoreTokens() ;i++){ //pour chaque champs
 					String data = (String) splitter.nextToken(); //on le recupere dans une chaine de caracteres
-					data = data.replace("\"", ""); //on enleve les guillemets
+					data = data.replace("\"", ""); //on enleve les guillemets au début et à la fin de ce qu'on a récupéré
 					switch(i){
 					
-						case 0://rivoli
+						case 0://premier champs de la ligne : rivoli
 							if(!(data.isEmpty())){
 								datas.setRivoli(data); //on enregistre le rivoli
 							}
 							break;
 							
-						case 1://libelle
+						case 1://second champ : libelle
 							if(!(data.isEmpty())){
 								String[] splitterLibelle = data.split(" ");
 								datas.setTypeRue(splitterLibelle[0]); // on enregistre le type de rue (au cas ou on voudrait changer la recherche par la suite)
-								datas.setLibelle(data);
+								datas.setLibelle(data); //on enregistre le libelle
 							}
 							break;
 							
 						case 2://commune
 							if(!(data.isEmpty())){
-								datas.setCommune(data);
+								datas.setCommune(data); //on enregistre la commune
 							}
 							break;
 							
@@ -258,18 +360,21 @@ public class Data implements Serializable{
 							if(!(data.isEmpty())){
 								datas.setMotDirecteur(data);
 							}
-							if(!(this.motDirecteur.equals(""))){ //si on fait la recherche par le mot directeur
-								String[] splitterMotDirecteur = this.motDirecteur.toUpperCase().split(" "); //on enleve la casse
+							if(!(this.motDirecteur.equals(""))){ //si on fait la recherche par le mot directeur et que celui-ci n'est pas vide
+								String[] splitterMotDirecteur = this.motDirecteur.toUpperCase().split(" "); //on enleve la casse et prend chaque mot de l'adresse
 								
-								for(String s : splitterMotDirecteur){
+								for(String s : splitterMotDirecteur){ //pour chaque mot de l'adresse donnee par l'utilisateur
 									//on enleve les eventuelles apostrophes
 									if (s.matches(".*'.*"))
 										s = s.split("'")[1];
+									
+									//on fait une comparaison sans accent
 									String s1 = StringOperation.sansAccent(s);
 									String data1 = StringOperation.sansAccent(data);
 									
-									if(data1.toUpperCase().equals(s1)){
-										trouve = true;
+									//entre le mot directeur de la ligne parcourue et chaque mot de l'adresse utilisateur
+									if(data1.toUpperCase().equals(s1)){ //si un mot correspond
+										trouve = true; // la ligne correspond à une adresse succeptible d'être celle de l'utilisateur
 									}
 								}
 							}
@@ -313,7 +418,7 @@ public class Data implements Serializable{
 							
 						case 10://bleuJourCollecte
 							if(!(data.isEmpty())){
-								//on recupere les jours en enlevant les et et les -
+								//on recupere les jours bleus en enlevant les "et" et les "-"
 								String[] splitterBleu1 = data.split(" et ");
 								for(String data1 : splitterBleu1){
 									String[] splitterBleu2 = data1.split(" - ");
@@ -326,6 +431,7 @@ public class Data implements Serializable{
 							
 						case 11://jauneJourCollecte
 							if(!(data.isEmpty())){
+								//on recupere les jours bleus en enlevant les "et" et les "-"
 								String[] splitterJaune1 = data.split(" et ");
 								for(String data1 : splitterJaune1){
 									String[] splitterJaune2 = data1.split(" - ");
@@ -363,7 +469,7 @@ public class Data implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return dataLine;
+		return dataLine; //on retourne la liste d'adresses potentielles
 	}
 	
 	/**
@@ -372,41 +478,45 @@ public class Data implements Serializable{
 	 * Elle renverra un objet Jours comprenant deux attributs de type ArrayList<Integer>
 	 * contenant respectivement les jours de collecte pour les poubelles et
 	 * les jours de collectes pour les poubelles jaunes
-	 * en fonction du rivoli de l'adresse de l'utilisateur ainsi que de son numero de logement
+	 * en fonction du rivoli de l'adresse de l'utilisateur ainsi que de son numero d'adresse
 	 */
 	public Jours parsageSecond(String rivoli,Integer numAdresse){
 		this.setRivoli(rivoli);
 		//renseignements sur le numAdresse
-		Boolean numAdresse_est_pair = false;
+		Boolean numAdresse_est_pair = false; //est-il pair?
 		if(numAdresse%2 == 0){
 			numAdresse_est_pair = true;
 		}
 		
-		Jours jours = new Jours();
+		Jours jours = new Jours(); //objet qui sera retourné
+		
 		try {
+			//on se connecte au fichier csv present sur le serveur de l'openData grace a son URL
 			URL url = new URL(this.getUrlFichier());
 			HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
 			httpConnection.connect();
+			//on parcourt ce fichier
 			InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream());
 			BufferedReader reader = new BufferedReader(isr);
 			
 			String line = "";
 			//pour chaque ligne
-			Boolean rivoli_trouve = false;
-			Boolean ligne_trouvee = false;
+			Boolean rivoli_trouve = false; //a-t-on trouvé le rivoli?
+			Boolean ligne_trouvee = false; //a-t-on trouvé l'adresse?
 			while ((line = reader.readLine()) != null) {
-				if((!rivoli_trouve) || (!ligne_trouvee)){
-					StringTokenizer splitter = new StringTokenizer(line, ",");
-					Boolean bleusMixte = false;
-					Boolean bleuESTjaune = false;
-					Boolean obsPresColAparser = false;
+				if((!rivoli_trouve) || (!ligne_trouvee)){// si on a n'y trouvé le rivoli , ni la bonne ligne
+					StringTokenizer splitter = new StringTokenizer(line, ",");//on splitte la ligne avec le délimiteur du csv
+					Boolean bleusMixte = false; //les jours bleus dépendent-ils du numéro d'adresse?
+					Boolean bleuESTjaune = false; //les poubelles bleues sont-elles ramassées en même temps que les poubelles jaunes?
+					Boolean obsPresColAparser = false; //faut-il parser l'observation de la collecte?
 						
 					for(Integer i=0; splitter.hasMoreTokens() ;i++){
 						String data = (String) splitter.nextToken();
-						data = data.replace("\"", "");
+						data = data.replace("\"", ""); //on enlève les guillemets au début et à la fin de ce qu'on a récupéré dans le fichier
 						switch(i){
 						
 							case 0://controle rivoli
+								//si ce qu'on a récupéré n'est pas vide et qu'il s'agit bien du rivoli recherché
 								if( !(data.isEmpty()) && (this.getRivoli() != "") && (data.equals(this.getRivoli())) ){
 									rivoli_trouve = true;
 								}
@@ -432,18 +542,19 @@ public class Data implements Serializable{
 								
 							case 7://controle prestationCollecte
 								if( !(data.isEmpty()) && rivoli_trouve ){
+									//si la prestation est trisac ou extension trisac ou en centre-ville
 									if(data.replaceAll("'","").equals("TRISAC") ||
 											data.equals("Centre-ville en C3") ||
 											data.equals("extension trisac 2013")){
-										bleuESTjaune = true;
+										bleuESTjaune = true; // alors les poubelles jaunes sont récupérées le jour des poubelles bleues
 									}
 								}
 								break;
 								
 							case 8://controle typeCollecte
 								if( !(data.isEmpty()) && rivoli_trouve){
-									if(data.equals("pluriel")){
-										obsPresColAparser = true;
+									if(data.equals("pluriel")){ //si le type de la collecte est pluriel
+										obsPresColAparser = true; //il faut parser les observations de la collecte pour savoir si on est dans la bonne ligne
 									}
 									else{
 										ligne_trouvee = true;
@@ -452,43 +563,52 @@ public class Data implements Serializable{
 								break;
 								
 							case 9://controle observationsPrestationCollecte
-								if( !(data.isEmpty()) && rivoli_trouve && obsPresColAparser){
-										ObservationsParsage obs = new ObservationsParsage(data);
-										PlageNum plageNum = obs.determinePlageNum();
-										if(numAdresse_est_pair){
-											if( ( (numAdresse >= plageNum.debutPair) && 
-													(numAdresse <= plageNum.finPair) &&
-													(!plageNum.numerosExclus.contains(numAdresse)) ) || 
-													( plageNum.numerosSupplementaires.contains(numAdresse) ) ){
-												ligne_trouvee = true;
-											}
+								if( !(data.isEmpty()) && rivoli_trouve && obsPresColAparser){ // si le type de la collecte est pluriel
+									//on créé un nouvel objet ObservationsParsage qui permet de parser 
+									//les différentes observations du fichier csv écrit en langage naturel
+									ObservationsParsage obs = new ObservationsParsage(data);
+									//plageNum est la plage de numéros d'adresse comprise dans la ligne du fichier csv
+									PlageNum plageNum = obs.determinePlageNum();
+									//on regarde si le numéro d'adresse de l'utilisateur se trouve dans cette plage
+									if(numAdresse_est_pair){
+										if( ( (numAdresse >= plageNum.debutPair) && 
+												(numAdresse <= plageNum.finPair) &&
+												(!plageNum.numerosExclus.contains(numAdresse)) ) || 
+												( plageNum.numerosSupplementaires.contains(numAdresse) ) ){
+											ligne_trouvee = true;
 										}
-										else{
-											if( ( (numAdresse >= plageNum.debutImpair) && 
-													(numAdresse <= plageNum.finImpair) &&
-													(!plageNum.numerosExclus.contains(numAdresse)) ) ||
-													( plageNum.numerosSupplementaires.contains(numAdresse) ) ){
-												ligne_trouvee = true;
-											}
+									}
+									else{
+										if( ( (numAdresse >= plageNum.debutImpair) && 
+												(numAdresse <= plageNum.finImpair) &&
+												(!plageNum.numerosExclus.contains(numAdresse)) ) ||
+												( plageNum.numerosSupplementaires.contains(numAdresse) ) ){
+											ligne_trouvee = true;
 										}
+									}
 								}
 								break;
 								
 							case 10://controle bleuJourCollecte
 								if( !(data.isEmpty()) && rivoli_trouve && ligne_trouvee){
+									// si le champs des jours de collecte n'est pas mixte
 									if(!data.equals("mixte : voir précisions")){
+										// on splitte ce champs avec "et" et "-" pour récupérer les jours
 										String[] splitterBleu1 = data.split(" et ");
 										for(String data1 : splitterBleu1){
 											String[] splitterBleu2 = data1.split(" - ");
 											for(String data2 : splitterBleu2){
 												jours.addJourBleu(data2);
-												if(bleuESTjaune){
-													jours.addJourJaune(data2);
+												if(bleuESTjaune){ //si la distribution jaune se fait en même temps que la distribution bleue
+													jours.addJourJaune(data2); // on ajoute les jours bleues aux jours jaunes
 												}
 											}
 										}
 									}
 									else{
+										//sinon bleu est mixte 
+										//et il faudra faire une recherche 
+										//dans l'observation du jour de collecte
 										bleusMixte = true;
 									}
 								}
@@ -496,6 +616,7 @@ public class Data implements Serializable{
 								
 							case 11://controle jauneJourCollecte
 								if( !(data.isEmpty()) && rivoli_trouve && ligne_trouvee ){
+									//on splitte avec "et" et "-" pour récupérer les jours jaunes
 									String[] splitterJaune1 = data.split(" et ");
 									for(String data1 : splitterJaune1){
 										String[] splitterJaune2 = data1.split(" - ");
@@ -507,9 +628,15 @@ public class Data implements Serializable{
 								break;
 								
 							case 12://controle observationsJourCollecte
-								if( !(data.isEmpty()) && rivoli_trouve && ligne_trouvee && bleusMixte){
+								if( !(data.isEmpty()) && rivoli_trouve && ligne_trouvee && bleusMixte){ //si les jours bleus sont mixtes
+									//on créé un nouvel objet ObservationsParsage qui permet de parser 
+									//les différentes observations du fichier csv écrit en langage naturel
 									ObservationsParsage obs = new ObservationsParsage(data);
+									//plageJour est un objet permettant d'associer un ou plusieurs jours de collecte à un numéro d'adresse
 									PlageJour plageJour = obs.determinePlageJour();
+									//on regarde dans quel plage se trouve le numéro d'adresse de l'utilisateur
+									//puis on ajoute les jours bleus adéquats
+									//ainsi que les jours jaunes s'ils doivent être les mêmes
 									if(numAdresse_est_pair){
 										if(numAdresse >= plageJour.debutPair1 && numAdresse <= plageJour.finPair1){
 											for(String jour : plageJour.Jours1){
@@ -570,9 +697,11 @@ public class Data implements Serializable{
 	}
 
 	
-	
+	/**
+	 * Test de l'objet Data
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		//exemple pour rentrer les donn�es dans la BD
 		Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
 		ArrayList<Data> dataparsee = data4.parsageFirst("Abreuvoir");
 		for(Integer index = 0 ; index<dataparsee.size() ; index++){

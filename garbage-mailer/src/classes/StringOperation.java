@@ -1,6 +1,13 @@
 package classes;
 import java.util.*;
 
+/**
+ * Classe abstraite permettant de supprimer les accents d'une chaine
+ * 
+ * @author Justine
+ *
+ */
+
 public abstract class StringOperation {
 
 
