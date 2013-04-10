@@ -24,6 +24,10 @@ public class DelAddressServlet extends HttpServlet{
 		
 		String rivolli = request.getParameter("idDel");
 		
+		if (rivolli.length() == 3) rivolli = "0"+rivolli;
+		if (rivolli.length() == 2) rivolli = "00"+rivolli;
+		if (rivolli.length() == 1) rivolli = "000"+rivolli;
+		
 		Requete.delAddress(rivolli, userGoogle.getEmail());
 		//forcer le rafraichissement de la page index (sans ça, l'adresse ne supprime pas du premier coup)
 		response.addHeader("Pragma", "no-cache");

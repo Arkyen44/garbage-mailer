@@ -45,7 +45,7 @@ public final class Requete {
 			 	" WHERE name == '"+name+"' && rivolli == '"+rivo+"'";
 		
 		List<UserBean> liste = (List<UserBean>) pm.newQuery(query).execute();
-		if (liste != null)
+		if (liste != null && liste.size()>0)
 				pm.deletePersistent(liste.get(0));
 		pm.close();
 	}
