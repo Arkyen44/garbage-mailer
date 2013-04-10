@@ -1,69 +1,182 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="classes.Data"%>
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-<%
-//On récupère le user.
-UserService userService = UserServiceFactory.getUserService();
-User userGoogle = userService.getCurrentUser();
-//S'il est loggué
-if (userGoogle != null){
-	ArrayList<Data> dataToChoose = ((ArrayList<Data>)request.getAttribute("liste"));
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Garbage Mailer</title>
+		<style type="text/css">
+			<%@ include file="css/style.css" %>
+		</style>
+	</head>
+
+	<body>
+
+	<%
+	//On rÃ©cupÃ¨re le user.
+	UserService userService = UserServiceFactory.getUserService();
+	User userGoogle = userService.getCurrentUser();
+	%>
+
+	<div id="menu-wrapper">
+		<div id="menu">
+			<ul>
+				<li class="current_page_item"><a href="index.jsp">Homepage</a></li>
+				<li><a href="apropos.jsp">A propos</a></li>
+
+				<%
+				//S'il est logguÃ©
+				if (userGoogle != null) {%>
+					<li class="connexion"><a href="<%=userService.createLogoutURL(request.getRequestURI())%>">Deconnexion</a></li>
+				<%}
+				else{ %>
+					<li class="connexion"><a href="<%=userService.createLoginURL(request.getRequestURI())%>">Connexion</a></li>
+				<%} %>		
+			</ul>
+		</div>
+	<!-- end #menu --> 
+	</div>
+
+	<div id="banner">
+		<center>
+		<img src="css/images/poubelles.jpg"  height="300" alt="" />
+		</center>
+	</div>
+
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1>Garbage<span>Mailer</span></h1>
+					<p>Le ramasseur de poubelle</p>
+				</div>
+			</div>
+		</div>
+		<div id="wrapper"> 
+		<!-- end #header -->
+
+			<div id="page">
+				<div id="page-bgtop">
+					<div id="page-bgbtm">
+						<div id="sidebar">
+							<ul>
+								<li>
+									<h2>Search Here</h2>
+									<div id="search" >
+										<form method="get" action="#">
+											<div>
+												<input type="text" name="s" id="search-text" value="" />
+												<input type="submit" id="search-submit" value="" />
+											</div>
+										</form>
+									</div>
+									<div style="clear: both;">&nbsp;</div>
+								</li>
+								<li>
+									<h2>Garbage Mailer</h2>
+									<p>L'application qui va changer votre tri</p>
+								</li>
+								<li>
+									<h2>Categories</h2>
+									<ul>
+										<li>Poubelle jaune</li>
+										<li>Poubelle bleue</li>
+										<li>Tri'sac</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<!-- end #sidebar -->	
+
+					<div id="content">
+					<div class="post">						
+
+	<%
+	//S'il est logguÃ©
+	if (userGoogle != null) {
+		
+	
+
+		ArrayList<Data> dataToChoose = ((ArrayList<Data>)request.getAttribute("liste"));
 	
 	//on place dans la session la liste des data
-	//on pourra ainsi récupérer l'objet data qui convient grâce au rivolli transmis dans le formulaire ci-dessous
+	//on pourra ainsi rÃ©cupÃ©rer l'objet data qui convient grÃ¢ce au rivolli transmis dans le formulaire ci-dessous
 	 HttpSession sess=request.getSession(true);
 	sess.setAttribute("listeData", dataToChoose);
 	if (dataToChoose!=null && dataToChoose.size()>0){
 		%>
+		
+		<h2 class="littletitle">Choisissez votre rue</h2>						
+						<div class="entry">
+							<p>
 		<form action="/addAddress" method="post">
 		<%
 		for (Data d : dataToChoose){
 			%>
-			<input name="choixAdresse" checked type="radio" value="<%= d.getRivoli() %>"><%= d.getLibelle() %></option>
+			<input name="choixAdresse" type="radio" value="<%= d.getRivoli() %>"><%= d.getLibelle() %></option>
 			<br />
 			<% 
 		}
 		%>
 		<input name="numRue" type="hidden" value="<%= request.getAttribute("num") %>" />
-		<div><input type="submit" value="Valider mes informations" /></div>
+		<p class="links"><input class="button" type="submit" value="Valider mes informations" /></p>
 		</form>
 		<%
 	}else {
 		%>
-			<p>Aucune adresse n'a été trouvées...</p>
+			<div style="clear: both;">&nbsp;</div>
+			<p>Aucune adresse n'a Ã©tÃ© trouvÃ©e...</p>
 			<br/>
-			<a href="index.jsp">Retour</a>
+			<p class="links"><a href="index.jsp" class="button">Retour</a></p>
 		<%
-	}
+	}%>
 
-}else{
+									</p>
+						</div>
+					</div>					
+
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- end #content -->
+
+		<%
+		//si l'utilisateur n'est pas logguÃ©
+	} 
+	else {
+		response.sendRedirect("index.jsp");
+	}//fin if logguÃ© else
 	%>
-		<h1>Bienvenue dans le Garbage Mailer!</h1>
-	<p>Cet outil révolutionnaire vous permettra d'être averti du jour de ramassage de vos poubelle...
-	Pour cela? Rien de plus simple : <br />
-		1 - Se connecter <br />
-		2 - Renseigner son adresse <br />
-		3 - Etre averti en temps voulu du passage du camion poubelle <br />
-	</p>
+
+				<div style="clear: both;">&nbsp;</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- end #page --> 
+
+</div>
+
+<div id="footer">
+
+	<p>&copy; 2013 Nicolas Dufour | Justine Bonnet | CÃ©cile Rousseau | Vincent Bruneau </p>
+
+</div>
+
+<!-- end #footer -->
+
 	
-	<h2>Connexion : </h2><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Ici</a>
-	
-	<%
-	}//fin if loggué else
-	%>
-	
-	
+
 </body>
+
 </html>

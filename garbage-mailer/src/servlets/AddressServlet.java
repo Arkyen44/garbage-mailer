@@ -2,20 +2,13 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.jdo.PersistenceManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import classes.Data;
-import classes.Jours;
-import classes.PMF;
-import classes.Requete;
+//import classes.Data;
+import classes.*;
 
 /**
  * parsage du fichier et validation de l'existence de l'adresse

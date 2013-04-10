@@ -10,10 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.UserBean;
-import classes.Data;
-import classes.Jours;
-import classes.PMF;
-import classes.Requete;
+//import classes.Data;
+//import classes.Jours;
+//import classes.PMF;
+//import classes.Requete;
+import classes.*;
 
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
