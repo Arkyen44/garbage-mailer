@@ -32,9 +32,6 @@ public class AddressOkServlet extends HttpServlet{
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 		
-		//booléen indiquant si l'utilisateur a déjà ajouté l'adresse qu'il va ajouter
-		boolean alreadyHave = false;
-		
 		//on récupère l'adresse qui a été validée en BDD
 		String idRue = request.getParameter("choixAdresse");
 		String num = request.getParameter("numRue");

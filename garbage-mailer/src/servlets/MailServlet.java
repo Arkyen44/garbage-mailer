@@ -19,6 +19,10 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 import classes.Requete;
 
 import beans.UserBean;
@@ -82,19 +86,23 @@ public class MailServlet extends HttpServlet {
 			}
 		}
 		
+		//On récupère le user.
+		UserService userService = UserServiceFactory.getUserService();
+		User userGoogle = userService.getCurrentUser();
+		
 		//on récupère les personnes qui ont un ramassage de poubelle ce jour
 		List<UserBean> listeBleue = new ArrayList<UserBean>();
-		listeBleue = Requete.destinatairesBleu(jour);
+		listeBleue = Requete.destinatairesBleu(jour, userGoogle.getEmail());
 		
 		List<UserBean> listeJaune = new ArrayList<UserBean>();
-		listeJaune = Requete.destinatairesJaune(jour);
+		listeJaune = Requete.destinatairesJaune(jour, userGoogle.getEmail());
 		
 		//permet de récupérer les adresses dont les jours sont merc_sem_paires ou merc_sem_impaires
 		List<UserBean> listeBleueSpeciale = new ArrayList<UserBean>();
-		listeBleueSpeciale = Requete.destinatairesBleu(jour_special);
+		listeBleueSpeciale = Requete.destinatairesBleu(jour_special, userGoogle.getEmail());
 		//permet de récupérer les adresses dont les jours sont merc_sem_paires ou merc_sem_impaires
 		List<UserBean> listeJauneSpeciale = new ArrayList<UserBean>();
-		listeJauneSpeciale = Requete.destinatairesJaune(jour_special);
+		listeJauneSpeciale = Requete.destinatairesJaune(jour_special, userGoogle.getEmail());
 		
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
