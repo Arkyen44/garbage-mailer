@@ -27,7 +27,7 @@ public abstract class StringOperation {
       
        car = new java.lang.String("A");
        Result.add( car );            /* '\u00C0'   À   alt-0192  */ 
-       Result.add( car );            /* '\u00C1'   Á   alt-0193  */
+       Result.add( car );          
        Result.add( car );            /* '\u00C2'   Â   alt-0194  */
        Result.add( car );            /* '\u00C3'   Ã   alt-0195  */
        Result.add( car );            /* '\u00C4'   Ä   alt-0196  */
@@ -43,11 +43,11 @@ public abstract class StringOperation {
        Result.add( car );            /* '\u00CB'   Ë   alt-0203  */
        car = new java.lang.String("I");
        Result.add( car );            /* '\u00CC'   Ì   alt-0204  */
-       Result.add( car );            /* '\u00CD'   Í   alt-0205  */
+       Result.add( car );          
        Result.add( car );            /* '\u00CE'   Î   alt-0206  */
-       Result.add( car );            /* '\u00CF'   Ï   alt-0207  */
+       Result.add( car );            
        car = new java.lang.String("D");
-       Result.add( car );            /* '\u00D0'   Ð   alt-0208  */
+       Result.add( car );           
        car = new java.lang.String("N");
        Result.add( car );            /* '\u00D1'   Ñ   alt-0209  */
        car = new java.lang.String("O");
@@ -66,7 +66,7 @@ public abstract class StringOperation {
        Result.add( car );            /* '\u00DB'   Û   alt-0219  */
        Result.add( car );            /* '\u00DC'   Ü   alt-0220  */
        car = new java.lang.String("Y");
-       Result.add( car );            /* '\u00DD'   Ý   alt-0221  */
+       Result.add( car );          
        car = new java.lang.String("Þ");
        Result.add( car );            /* '\u00DE'   Þ   alt-0222  */
        car = new java.lang.String("B");
