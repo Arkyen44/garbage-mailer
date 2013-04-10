@@ -70,18 +70,6 @@
 						<div id="sidebar">
 							<ul>
 								<li>
-									<h2>Search Here</h2>
-									<div id="search" >
-										<form method="get" action="#">
-											<div>
-												<input type="text" name="s" id="search-text" value="" />
-												<input type="submit" id="search-submit" value="" />
-											</div>
-										</form>
-									</div>
-									<div style="clear: both;">&nbsp;</div>
-								</li>
-								<li>
 									<h2>Garbage Mailer</h2>
 									<p>L'application qui va changer votre tri</p>
 								</li>
@@ -90,7 +78,6 @@
 									<ul>
 										<li>Poubelle jaune</li>
 										<li>Poubelle bleue</li>
-										<li>Tri'sac</li>
 									</ul>
 								</li>
 							</ul>
@@ -115,7 +102,7 @@
 		<h2 class="littletitle">Choisissez votre rue</h2>						
 						<div class="entry">
 							<p>
-		<form action="/addAddress" method="post">
+		<form action="/addAddress" method="post" enctype="charset=UTF-8">
 		<%
 		for (Data d : dataToChoose){
 			%>

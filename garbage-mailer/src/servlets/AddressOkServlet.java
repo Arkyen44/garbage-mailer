@@ -97,11 +97,15 @@ public class AddressOkServlet extends HttpServlet{
 			}
 		}
 		
-		//forcer le rafraichissement de la page index (sans ça, l'adresse ne s'affiche pas du premier coup)
-		response.addHeader("Pragma", "no-cache");
-		response.addHeader("Cache-Control", "no-cache");
-		response.setHeader("Cache-Control", "no-store");
-		response.addHeader("Cache-Control", "must-revalidate");
+		//on attend que la valeur soit rentrée en BDD avant de rediriger,
+		//sinon problème de rafraichissement
+		try {
+			Thread.currentThread().sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}// sleep for 500 ms
+		
 		response.sendRedirect("index.jsp");
 	}
 		

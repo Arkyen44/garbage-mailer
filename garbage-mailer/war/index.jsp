@@ -31,7 +31,7 @@
 		<div id="menu">
 			<ul>
 				<li class="current_page_item"><a href="index.jsp">Homepage</a></li>
-				<li><a href="aPropos.jsp">A propos</a></li>
+				<li><a href="apropos.jsp">A propos</a></li>
 
 				<%
 				//S'il est loggué
@@ -48,7 +48,7 @@
 
 	<div id="banner">
 		<center>
-		<img src="css/images/poubelles.jpg"  height="300" alt="" />
+		<img src="css/images/poubelles.jpg"  height="300" alt="image poubelles" />
 		</center>
 	</div>
 
@@ -68,18 +68,7 @@
 					<div id="page-bgbtm">
 						<div id="sidebar">
 							<ul>
-								<li>
-									<h2>Search Here</h2>
-									<div id="search" >
-										<form method="get" action="#">
-											<div>
-												<input type="text" name="s" id="search-text" value="" />
-												<input type="submit" id="search-submit" value="" />
-											</div>
-										</form>
-									</div>
-									<div style="clear: both;">&nbsp;</div>
-								</li>
+								
 								<li>
 									<h2>Garbage Mailer</h2>
 									<p>L'application qui va changer votre tri</p>
@@ -117,10 +106,10 @@
 											<p>Vous trouverez ci-dessous le récapitulatif de vos adresses ainsi que le jour de ramassage de vos poubelles.</p>
 											
 											<TR>
-												<TH class="titre">Numéro<hr/></TH>
+												<TH>Numéro<hr/></TH>
 												<TH class="titre">Rue<hr/></TH>
-												<TH class="titre">Bleue<hr/></TH>
-												<TH class="titre">Jaune<hr/></TH>
+												<TH>Bleue<hr/></TH>
+												<TH>Jaune<hr/></TH>
 												<TH></TH>
 											</TR>
 											<%
@@ -191,7 +180,7 @@
 										</p>
 										<div style="clear: both;">&nbsp;</div>
 										<p> Vous serez averti en tant voulu par mail du jour de ramassage de vos poubelles
-										<p class="links"><a href="<%=userService.createLoginURL(request.getRequestURI())%>" class="button">Connexion</a></p>
+										<p class="links"><a href="<%=userService.createLogoutURL(request.getRequestURI())%>" class="button">Connexion</a></p>
 									</div>
 						</div>
 						

@@ -1,4 +1,3 @@
-@CHARSET "ISO-8859-1";
 body {
 	margin: 0;
 	padding: 0;
@@ -68,8 +67,8 @@ a:hover {
 #logo h1, #logo p {
 	margin: 0;
 	padding: 0;
+	
 }
-
 #logo h1 {
 	margin: 0px;
 	padding: 0px;
@@ -99,45 +98,6 @@ a:hover {
 	background: none;
 	text-decoration: none;
 	color: #323030;
-}
-
-/* Search */
-
-#search {
-	width: 320px;
-	height: 60px;
-	padding: 0px;
-}
-
-#search form {
-	margin: 0px;
-	padding: 0px;
-}
-
-#search fieldset {
-	margin: 0;
-	padding: 0;
-	border: none;
-}
-
-#search-text {
-	width: 210px;
-	outline: none;
-	background: #F5F0E7;
-	border: 1px solid #D7D0C0;
-	padding: 10px;
-	border-radius: 8px;
-	text-transform: lowercase;
-	font-family: 'Open Sans', sans-serif;
-	color: #454545;
-}
-
-#search-submit {
-	width: 62px;
-	height: 22px;
-	display: none;
-	border: none;
-	color: #FFFFFF;
 }
 
 /* Menu */
@@ -284,7 +244,11 @@ a:hover {
 }
 
 th{
-	padding-right:40px;
+	padding-right:33px;
+}
+
+.post .entry .titre{
+	width:250px;
 }
 
 .post .entry TABLE{
