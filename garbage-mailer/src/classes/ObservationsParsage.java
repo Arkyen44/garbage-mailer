@@ -499,5 +499,40 @@ public class ObservationsParsage {
 		
 		return plageJour;
 	}
+	
+	/**
+	 * Fonction test de ObservationsParsage
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Integer numAdresse = 31;
+		Boolean numAdresse_est_pair = false; //est-il pair?
+		if(numAdresse%2 == 0){
+			numAdresse_est_pair = true;
+		}
+		
+		Boolean ligne_trouvee = false;
+		ObservationsParsage obs = new ObservationsParsage("sauf le numero 30 seulement");
+		PlageNum plageNum = obs.determinePlageNum();
+		
+		if(numAdresse_est_pair){
+			if( ( (numAdresse >= plageNum.debutPair) && 
+					(numAdresse <= plageNum.finPair) &&
+					(!plageNum.numerosExclus.contains(numAdresse)) ) || 
+					( plageNum.numerosSupplementaires.contains(numAdresse) ) ){
+				ligne_trouvee = true;
+			}
+		}
+		else{
+			if( ( (numAdresse >= plageNum.debutImpair) && 
+					(numAdresse <= plageNum.finImpair) &&
+					(!plageNum.numerosExclus.contains(numAdresse)) ) ||
+					( plageNum.numerosSupplementaires.contains(numAdresse) ) ){
+				ligne_trouvee = true;
+			}
+		}
+		
+		if(ligne_trouvee){ System.out.println("trouve!");}
+	}
 
 }
