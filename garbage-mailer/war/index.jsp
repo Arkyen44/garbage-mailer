@@ -7,6 +7,9 @@
 <%@ page import="com.google.appengine.api.users.UserService"%>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory"%>
 <html>
+<head>
+<title>Garbage mailer</title>
+</head>
 <body>
 	<%
 		//On récupère le user.
@@ -35,7 +38,6 @@
 			<TH>Adresse</TH>
 			<TH>Bleu</TH>
 			<TH>Jaune</TH>
-			<TH>Tri'sac</TH>
 			<TH>Supprimer l'adresse</TH>
 		</TR>
 		<%
@@ -46,7 +48,6 @@
 			<TH><%=ub.getAddress()%></TH>
 			<TH><%=ub.getBleu()%></TH>
 			<TH><%=ub.getJaune()%></TH>
-			<TH><%=ub.getTriSac()%></TH>
 			<TH><a href="/delAddress?idDel=<%=ub.getRivolli()%>">supprimer</a></TH>
 		</TR>
 		<%

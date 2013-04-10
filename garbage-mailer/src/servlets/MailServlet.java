@@ -38,13 +38,34 @@ public class MailServlet extends HttpServlet {
 		int j = calendar.get(Calendar.DAY_OF_WEEK);
 		String jour="";
 		switch (j) {
-		case 1: jour = "dimanche";
-		case 2: jour = "lundi";
-		case 3: jour = "mardi";
-		case 4: jour = "mercredi";
-		case 5: jour = "jeudi";
-		case 6: jour = "vendredi";
-		case 7: jour = "samedi";
+			case 1: {
+				jour = "dimanche";
+				break;
+			}
+			case 2: {
+				jour = "lundi";
+				break;
+			}
+			case 3: {
+				jour = "mardi";
+				break;
+			}
+			case 4: {
+				jour = "mercredi";
+				break;
+			}
+			case 5: {
+				jour = "jeudi";
+				break;
+			}
+			case 6: {
+				jour = "vendredi";
+				break;
+			}
+			case 7: {
+				jour = "samedi";
+				break;
+			}
 		}
 		
 		//on récupère les personnes qui ont un ramassage de poubelle ce jour
@@ -70,9 +91,9 @@ public class MailServlet extends HttpServlet {
 				try {
 					Message msg = new MimeMessage(session);
 					msg.setFrom(new InternetAddress("nicolas.dufour.ndr@gmail.com",
-							"Example.com Admin"));
+							"http://garbage-mailer.appspot.com"));
 					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-							u.getName(), "Mr. User"));
+							u.getName(), u.getName().substring(0, u.getName().indexOf("@"))));
 					msg.setSubject("Ramassage de vos poubelles!");
 					msg.setText(msgBody);
 					Transport.send(msg);

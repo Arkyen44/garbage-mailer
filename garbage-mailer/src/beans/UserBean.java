@@ -41,12 +41,15 @@ public class UserBean {
 	private String jaune;
 	@Persistent
 	private String bleu;
-	@Persistent
-	private String triSac;
 	
 
 	public UserBean(){
 		name="";
+		address="";
+		numero="";
+		rivolli="";
+		jaune="";
+		bleu="";
 	}
 
 	public String getName() {
@@ -59,14 +62,6 @@ public class UserBean {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
-	}
-
-	public String getTriSac() {
-		return triSac;
-	}
-
-	public void setTriSac(String triSac) {
-		this.triSac = triSac;
 	}
 
 	public void setName(String name) {
