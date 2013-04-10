@@ -103,14 +103,11 @@
 	<%
 	//S'il est loggué
 	if (userGoogle != null) {
-		
-	
-
 		ArrayList<Data> dataToChoose = ((ArrayList<Data>)request.getAttribute("liste"));
 	
-	//on place dans la session la liste des data
+	//on place dans la session la liste des datas
 	//on pourra ainsi récupérer l'objet data qui convient grâce au rivolli transmis dans le formulaire ci-dessous
-	 HttpSession sess=request.getSession(true);
+	HttpSession sess=request.getSession(true);
 	sess.setAttribute("listeData", dataToChoose);
 	if (dataToChoose!=null && dataToChoose.size()>0){
 		%>

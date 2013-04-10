@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
  *
  */
 
-public class Data {
+public class Data implements Serializable{
 	private String rivoli;
 	/*
 	 * le type de rue n'est pas un champs du fichier csv 
