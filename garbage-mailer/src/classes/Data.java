@@ -318,7 +318,7 @@ public class Data implements Serializable{
 			HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
 			httpConnection.connect();
 			//on parcourt ce fichier
-			InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream());
+			InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream(),"UTF-8");
 			BufferedReader reader = new BufferedReader(isr);
 			
 			String line = "";
@@ -496,7 +496,7 @@ public class Data implements Serializable{
 			HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
 			httpConnection.connect();
 			//on parcourt ce fichier
-			InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream());
+			InputStreamReader isr = new InputStreamReader(httpConnection.getInputStream(),"UTF-8");
 			BufferedReader reader = new BufferedReader(isr);
 			
 			String line = "";
@@ -703,9 +703,9 @@ public class Data implements Serializable{
 	 */
 	public static void main(String[] args) {
 		Data data4 = new Data("http://data.nantes.fr/api/publication/JOURS_COLLECTE_DECHETS_VDN/JOURS_COLLECTE_DECHETS_VDN_STBL/content/?format=csv");
-		ArrayList<Data> dataparsee = data4.parsageFirst("Abreuvoir");
+		ArrayList<Data> dataparsee = data4.parsageFirst("abélard");
 		for(Integer index = 0 ; index<dataparsee.size() ; index++){
-			System.out.println("Correspondance n°"+ (index + 1) + " pour Abreuvoir");
+			System.out.println("Correspondance n°"+ (index + 1) + " pour Abélard");
 			String rivoli = dataparsee.get(index).getRivoli();
 			String typeRue = dataparsee.get(index).getTypeRue();
 			String libelle = dataparsee.get(index).getLibelle();
