@@ -179,8 +179,8 @@
 										2. Renseignez votre adresse postale
 										</p>
 										<div style="clear: both;">&nbsp;</div>
-										<p> Vous serez averti en tant voulu par mail du jour de ramassage de vos poubelles
-										<p class="links"><a href="<%=userService.createLogoutURL(request.getRequestURI())%>" class="button">Connexion</a></p>
+										<p> Vous serez averti en temps voulu par mail du jour de ramassage de vos poubelles
+										<p class="links"><a href="<%=userService.createLoginURL(request.getRequestURI())%>" class="button">Connexion</a></p>
 									</div>
 						</div>
 						

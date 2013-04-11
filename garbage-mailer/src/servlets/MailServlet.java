@@ -86,30 +86,29 @@ public class MailServlet extends HttpServlet {
 			}
 		}
 		
-		//On récupère le user.
-		UserService userService = UserServiceFactory.getUserService();
-		User userGoogle = userService.getCurrentUser();
-		
 		//on récupère les personnes qui ont un ramassage de poubelle ce jour
 		List<UserBean> listeBleue = new ArrayList<UserBean>();
-		listeBleue = Requete.destinatairesBleu(jour, userGoogle.getEmail());
+		listeBleue = Requete.destinatairesBleu(jour);
 		
 		List<UserBean> listeJaune = new ArrayList<UserBean>();
-		listeJaune = Requete.destinatairesJaune(jour, userGoogle.getEmail());
+		listeJaune = Requete.destinatairesJaune(jour);
 		
-		//permet de récupérer les adresses dont les jours sont merc_sem_paires ou merc_sem_impaires
 		List<UserBean> listeBleueSpeciale = new ArrayList<UserBean>();
-		listeBleueSpeciale = Requete.destinatairesBleu(jour_special, userGoogle.getEmail());
-		//permet de récupérer les adresses dont les jours sont merc_sem_paires ou merc_sem_impaires
 		List<UserBean> listeJauneSpeciale = new ArrayList<UserBean>();
-		listeJauneSpeciale = Requete.destinatairesJaune(jour_special, userGoogle.getEmail());
-		
+		if (!jour_special.equals("")){
+			//permet de récupérer les adresses dont les jours sont merc_sem_paires ou merc_sem_impaires
+			listeBleueSpeciale = new ArrayList<UserBean>();
+			listeBleueSpeciale = Requete.destinatairesBleu(jour_special);
+			//permet de récupérer les adresses dont les jours sont merc_sem_paires ou merc_sem_impaires
+			listeJauneSpeciale = new ArrayList<UserBean>();
+			listeJauneSpeciale = Requete.destinatairesJaune(jour_special);
+		}
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
 		String msgBody = "";
 		
-		if (listeBleue != null){
+		if ((listeBleue != null) && (listeBleue.size()>0)){
 			for (UserBean u : listeBleue){
 				msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
 						"Vos poubelles bleues vont êtres ramassées demain, " +
@@ -137,7 +136,7 @@ public class MailServlet extends HttpServlet {
 		
 		
 		
-		if (listeJaune != null){
+		if ((listeJaune != null) && (listeJaune.size()>0)){
 			for (UserBean u : listeJaune){
 				msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
 						"Vos poubelles jaunes vont êtres ramassées demain, " +
@@ -166,7 +165,7 @@ public class MailServlet extends HttpServlet {
 		
 		//Cette boucle concerne uniquement les mercredis (merc_sem_paires et merc_sem_impaires)
 		if (jour.equals("mercredi")){
-			if (listeBleueSpeciale != null){
+			if ((listeBleueSpeciale != null)&&(listeBleueSpeciale.size()>0)){
 				for (UserBean u : listeBleueSpeciale){
 					msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
 							"Vos poubelles bleues vont êtres ramassées demain, " +
@@ -192,7 +191,7 @@ public class MailServlet extends HttpServlet {
 				}
 			}
 			
-			if (listeJauneSpeciale != null){
+			if ((listeJauneSpeciale != null)&&(listeJauneSpeciale.size()>0)){
 				for (UserBean u : listeJauneSpeciale){
 					msgBody="Bonjour "+u.getName().substring(0, u.getName().indexOf("@"))+"! " +
 							"Vos poubelles jaunes vont êtres ramassées demain, " +

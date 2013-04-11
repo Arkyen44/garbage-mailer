@@ -69,18 +69,6 @@
 						<div id="sidebar">
 							<ul>
 								<li>
-									<h2>Search Here</h2>
-									<div id="search" >
-										<form method="get" action="#">
-											<div>
-												<input type="text" name="s" id="search-text" value="" />
-												<input type="submit" id="search-submit" value="" />
-											</div>
-										</form>
-									</div>
-									<div style="clear: both;">&nbsp;</div>
-								</li>
-								<li>
 									<h2>Garbage Mailer</h2>
 									<p>L'application qui va changer votre tri</p>
 								</li>
@@ -111,7 +99,7 @@ Vos déchets peuvent être collectés :
  </ul>
 
 Parallèlement, de nouvelles consignes de tri vont être testées par 90000 Nantais qui seront détenteurs de bacs jaunes. Une expérimentation qui va durer deux ans.
-En savoir plus
+<a href="http://www.nantesmetropole.fr/pratique/dechets/de-nouveaux-dechets-passent-le-bac--45018.kjsp?RH=1250009878138">En savoir plus</a>
 <div style="clear: both;">&nbsp;</div>
 Vous habitez Basse-Goulaine, Bouaye, Bouguenais, Brains, Carquefou, Couëron, Indre, Mauves-sur-Loire, La Montagne, Orvault, Le Pellerin, Les Sorinières, St-Aignan-de-Grand-Lieu, Rezé, Saint-Herblain, Saint-Jean de Boiseau, Saint-Sébastien-sur-Loire, Sautron, St-Léger-les-Vignes, Vertou, les Ordures Ménagères résiduelles sont collectées 1 fois par semaine.
 <div style="clear: both;">&nbsp;</div>
