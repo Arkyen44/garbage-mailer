@@ -33,7 +33,7 @@ public class DelAddressServlet extends HttpServlet{
 		//on attend que la valeur soit rentrée en BDD avant de rediriger,
 		//sinon problème de rafraichissement
 		try {
-			Thread.currentThread().sleep(500);
+			Thread.currentThread().sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
