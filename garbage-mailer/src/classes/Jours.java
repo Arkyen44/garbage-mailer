@@ -40,16 +40,16 @@ public class Jours {
 	}
 	
 	/**
-	 * Méthode renvoyant la liste des jours bleus
-	 * @return
+	 * 
+	 * @return la liste des jours bleus
 	 */
 	public ArrayList<String> getJoursBleu(){
 		return this.listeJoursBleu;
 	}
 	
 	/**
-	 * Méthode renvoyant la liste des jours jaunes
-	 * @return
+	 * 
+	 * @return la liste des jours jaunes
 	 */
 	public ArrayList<String> getJoursJaune(){
 		return this.listeJoursJaune;

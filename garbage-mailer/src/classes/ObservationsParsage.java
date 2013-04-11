@@ -36,7 +36,7 @@ public class ObservationsParsage {
 	 * et qui renvoie un objet PlageNum contenant les différentes plages
 	 * de numéros d'adresse traitées par la ligne du fichier csv
 	 * 
-	 * @return
+	 * @return objet PlageNum contenant les differentes plages de numero
 	 */
 	public PlageNum determinePlageNum(){
 		PlageNum plageNum = new PlageNum();
@@ -380,7 +380,7 @@ public class ObservationsParsage {
 	 * et qui renvoie un objet PlageJour contenant les différentes plages
 	 * de numéros d'adresse traitées par la ligne du fichier csv associées
 	 * à un ou plusieurs jours de collecte des poubelles bleues
-	 * @return
+	 * @return Plagejour contenant les differentes plages de numeros
 	 */
 	public PlageJour determinePlageJour(){
 		PlageJour plageJour = new PlageJour();

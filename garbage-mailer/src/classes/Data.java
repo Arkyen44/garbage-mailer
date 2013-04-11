@@ -210,7 +210,7 @@ public class Data implements Serializable{
 
 	/**
 	 * Getteurs de tout les attributs de la classe Data
-	 * @return
+	 * 
 	 */
 	public String getRivoli(){
 		return this.rivoli;
@@ -309,7 +309,7 @@ public class Data implements Serializable{
 	 * pour trouver l'adresse recherchee par le visiteur
 	 * Elle renvoie une liste d'adresses succeptible de comprendre celle recherchee
 	 * @param motDirecteur
-	 * @return
+	 * @return La liste des adresses succeptible de comprendre celle recherchee
 	 */
 	public ArrayList<Data> parsageFirst(String motDirecteur){
 		this.setMotDirecteur(motDirecteur); //recherche sur le mot directeur
