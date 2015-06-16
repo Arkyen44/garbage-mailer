@@ -1,0 +1,1 @@
+Web application who send mail to prevent garbage collector
